@@ -1,0 +1,61 @@
+# API Keys and Secrets
+.env
+.env.local
+.env.production
+**/*API_KEY*
+
+# IntelliJ IDEA
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/shelf/
+.idea/dataSources/
+.idea/dataSources.local.xml
+.idea/httpRequests/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Backend (Gradle/Java)
+backend/.gradle/
+backend/build/
+backend/bin/
+backend/.settings/
+backend/.classpath
+backend/.project
+backend/*.log
+backend/*.db
+
+# Frontend (Node/React)
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+frontend/.cache/
+frontend/build/
+frontend/*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+h2/
+
+# Temporary files
+*.tmp
+*.bak
+*.cache

@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Backend (Spring Boot)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="saju-ai.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.sajuai.SajuAiApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <envs>
+      <env name="CLAUDE_API_KEY" value="your-api-key-here" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
