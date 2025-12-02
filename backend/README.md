@@ -8,12 +8,12 @@ Spring Boot 기반 AI 사주 분석 백엔드 서버
 - **Spring Boot**: 3.2.0
 - **Database**: H2 (개발), MySQL (프로덕션)
 - **Build Tool**: Gradle
-- **AI**: Anthropic Claude API
+- **AI**: Google Gemini API
 
 ## 주요 기능
 
 - 생년월일 기반 사주팔자 계산
-- Claude AI를 활용한 사주 분석
+- Gemini AI를 활용한 사주 분석
 - 분석 결과 저장 및 조회
 - REST API 제공
 
@@ -27,14 +27,18 @@ Spring Boot 기반 AI 사주 분석 백엔드 서버
 ### 환경 변수 설정
 
 ```bash
-# Claude API 키 설정
-export CLAUDE_API_KEY=your-claude-api-key-here
+# Gemini API 키 설정
+export GEMINI_API_KEY=your-gemini-api-key-here
 ```
 
 Windows (PowerShell):
 ```powershell
-$env:CLAUDE_API_KEY="your-claude-api-key-here"
+$env:GEMINI_API_KEY="your-gemini-api-key-here"
 ```
+
+**Gemini API 키 발급:**
+- https://ai.google.dev/ 에서 무료로 발급 가능
+- 무료 할당량: 분당 60 요청, 일일 1,500 요청
 
 ## 실행 방법
 
@@ -123,11 +127,12 @@ backend/
 - 일주: 율리우스력 기준
 - 시주: 일간과 시간 기준
 
-### Claude API 통신
+### Gemini API 통신
 
-`ClaudeApiService`에서 AI 분석 요청:
-- Model: claude-sonnet-4-20250514
-- Max Tokens: 2048
+`GeminiApiService`에서 AI 분석 요청:
+- Model: gemini-1.5-flash
+- Max Output Tokens: 2048
+- Temperature: 0.7
 - Timeout: 60초
 
 ## 라이선스

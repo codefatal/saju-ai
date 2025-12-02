@@ -1,6 +1,6 @@
 # SajuAI - AI 사주 분석 웹 애플리케이션
 
-생년월일을 입력받아 Claude API를 활용하여 전문적인 사주 분석을 제공하는 풀스택 웹 애플리케이션입니다.
+생년월일을 입력받아 Google Gemini API를 활용하여 전문적인 사주 분석을 제공하는 풀스택 웹 애플리케이션입니다.
 
 ## 🚀 빠른 시작 (IntelliJ 사용자)
 
@@ -15,7 +15,7 @@
 ### 주요 기능
 
 - 생년월일시 기반 사주팔자 계산 (천간지지)
-- Claude AI를 활용한 심층 사주 분석
+- Gemini AI를 활용한 심층 사주 분석
 - 성격, 운세, 직업운, 애정운, 건강운 분석
 - 행운의 색상 및 숫자 제공
 - 분석 이력 저장 및 조회
@@ -42,8 +42,8 @@
 - **React Icons** - 아이콘
 
 ### AI
-- **Anthropic Claude API**
-- Model: `claude-sonnet-4-20250514`
+- **Google Gemini API**
+- Model: `gemini-1.5-flash` (무료 사용 가능)
 
 ## 프로젝트 구조
 
@@ -87,19 +87,24 @@ saju/
 - **JDK 17** 이상
 - **Node.js 16** 이상
 - **Gradle 7.x** 이상
-- **Claude API 키** (https://console.anthropic.com/)
+- **Gemini API 키** (https://ai.google.dev/ - 무료 발급)
 
 ### 1. 환경 변수 설정
 
 ```bash
-# Claude API 키 설정 (필수)
-export CLAUDE_API_KEY=your-claude-api-key-here
+# Gemini API 키 설정 (필수)
+export GEMINI_API_KEY=your-gemini-api-key-here
 ```
 
 Windows (PowerShell):
 ```powershell
-$env:CLAUDE_API_KEY="your-claude-api-key-here"
+$env:GEMINI_API_KEY="your-gemini-api-key-here"
 ```
+
+**Gemini API 키 발급 방법:**
+1. https://ai.google.dev/ 접속
+2. "Get API key in Google AI Studio" 클릭
+3. "Create API key" 버튼으로 무료 API 키 발급
 
 ### 2. 백엔드 실행
 
@@ -280,8 +285,9 @@ npm run lint
 
 ### 백엔드
 
-**문제**: Claude API 호출 실패
-- **해결**: `CLAUDE_API_KEY` 환경 변수가 올바르게 설정되었는지 확인
+**문제**: Gemini API 호출 실패
+- **해결**: `GEMINI_API_KEY` 환경 변수가 올바르게 설정되었는지 확인
+- **해결**: 무료 할당량 초과 여부 확인 (분당 60 요청, 일일 1,500 요청)
 
 **문제**: H2 데이터베이스 연결 오류
 - **해결**: `application.yml`의 데이터베이스 설정 확인

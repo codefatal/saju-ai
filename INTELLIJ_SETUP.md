@@ -19,13 +19,14 @@
 - **File → Settings → Languages & Frameworks → Node.js**
 - Node interpreter가 설정되어 있는지 확인
 
-### 3. Claude API 키 설정 ⭐ 중요!
+### 3. Gemini API 키 설정 ⭐ 중요!
+- **먼저 무료 API 키 발급**: https://ai.google.dev/
 - 실행 구성 파일 수정 필요:
   - `.idea/runConfigurations/Backend__Spring_Boot_.xml` 파일 열기
-  - `CLAUDE_API_KEY` 값을 실제 API 키로 변경
+  - `GEMINI_API_KEY` 값을 실제 API 키로 변경
 
 ```xml
-<env name="CLAUDE_API_KEY" value="실제-API-키-입력" />
+<env name="GEMINI_API_KEY" value="실제-API-키-입력" />
 ```
 
 ---
@@ -164,5 +165,5 @@ gradlew.bat clean build
 
 1. 콘솔 에러 메시지 확인
 2. 백엔드/프론트엔드 모두 실행 중인지 확인
-3. `CLAUDE_API_KEY` 환경 변수 설정 확인
+3. `GEMINI_API_KEY` 환경 변수 설정 확인
 4. 포트 충돌 확인 (8888, 3000)

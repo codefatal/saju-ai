@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Duration;
 
 /**
- * Claude API 설정
+ * Gemini API 설정
  */
 @Configuration
-public class ClaudeApiConfig {
+public class GeminiApiConfig {
 
-    @Value("${claude.api.key}")
+    @Value("${gemini.api.key}")
     private String apiKey;
 
     public String getApiKey() {

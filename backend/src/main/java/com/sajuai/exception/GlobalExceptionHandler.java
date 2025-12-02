@@ -64,14 +64,14 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * ClaudeApiException 처리
+     * GeminiApiException 처리
      */
-    @ExceptionHandler(ClaudeApiException.class)
-    public ResponseEntity<ErrorResponse> handleClaudeApiException(
-            ClaudeApiException ex,
+    @ExceptionHandler(GeminiApiException.class)
+    public ResponseEntity<ErrorResponse> handleGeminiApiException(
+            GeminiApiException ex,
             HttpServletRequest request) {
 
-        log.error("Claude API error: {}", ex.getMessage(), ex);
+        log.error("Gemini API error: {}", ex.getMessage(), ex);
 
         ErrorResponse error = ErrorResponse.of(
                 HttpStatus.SERVICE_UNAVAILABLE.value(),

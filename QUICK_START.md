@@ -10,11 +10,13 @@ File → Open → D:\work\code\saju 폴더 선택
 
 ## 2️⃣ API 키 설정 ⭐ 필수!
 
+먼저 **Gemini API 키 발급**: https://ai.google.dev/ (무료)
+
 파일: `.idea/runConfigurations/Backend__Spring_Boot_.xml`
 
 다음 줄을 찾아서 수정:
 ```xml
-<env name="CLAUDE_API_KEY" value="여기에-실제-API-키-입력" />
+<env name="GEMINI_API_KEY" value="여기에-실제-API-키-입력" />
 ```
 
 ---

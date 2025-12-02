@@ -44,9 +44,24 @@ const BirthForm = ({ onSubmit, isLoading }) => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    let processedValue = value;
+    if (type === 'number') {
+      // 빈 문자열이면 그대로 유지
+      if (value === '') {
+        processedValue = '';
+      } else {
+        // 숫자로 변환, 0도 유효한 값으로 처리
+        const num = parseInt(value, 10);
+        processedValue = isNaN(num) ? '' : num;
+      }
+    } else if (type === 'checkbox') {
+      processedValue = checked;
+    }
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : type === 'number' ? parseInt(value) || '' : value,
+      [name]: processedValue,
     }));
 
     // Clear error for this field

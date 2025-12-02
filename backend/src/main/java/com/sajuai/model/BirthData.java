@@ -19,19 +19,19 @@ public class BirthData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "birth_year", nullable = false)
     private Integer year;
 
-    @Column(nullable = false)
+    @Column(name = "birth_month", nullable = false)
     private Integer month;
 
-    @Column(nullable = false)
+    @Column(name = "birth_day", nullable = false)
     private Integer day;
 
-    @Column(nullable = false)
+    @Column(name = "birth_hour", nullable = false)
     private Integer hour;
 
-    @Column(nullable = false)
+    @Column(name = "birth_minute", nullable = false)
     private Integer minute;
 
     @Enumerated(EnumType.STRING)

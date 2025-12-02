@@ -5,7 +5,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.sajuai.dto.BirthDataRequest;
 import com.sajuai.dto.SajuAnalysisResponse;
-import com.sajuai.exception.ClaudeApiException;
+import com.sajuai.exception.GeminiApiException;
 import com.sajuai.model.BirthData;
 import com.sajuai.model.SajuResult;
 import com.sajuai.repository.BirthDataRepository;
@@ -32,7 +32,7 @@ public class SajuAnalysisService {
     private final BirthDataRepository birthDataRepository;
     private final SajuResultRepository sajuResultRepository;
     private final SajuCalculatorService calculatorService;
-    private final ClaudeApiService claudeApiService;
+    private final GeminiApiService geminiApiService;
     private final Gson gson = new Gson();
 
     /**
@@ -69,9 +69,9 @@ public class SajuAnalysisService {
         String prompt = buildPrompt(pillars, birthData);
         log.debug("프롬프트 생성 완료");
 
-        // 4. Claude API 호출
-        String responseText = claudeApiService.sendAnalysisRequest(prompt);
-        log.debug("Claude API 응답 수신");
+        // 4. Gemini API 호출
+        String responseText = geminiApiService.sendAnalysisRequest(prompt);
+        log.debug("Gemini API 응답 수신");
 
         // 5. 응답 파싱
         Map<String, Object> analysisResult = parseAnalysisResponse(responseText);
@@ -143,7 +143,7 @@ public class SajuAnalysisService {
     }
 
     /**
-     * Claude 응답 파싱
+     * Gemini 응답 파싱
      */
     private Map<String, Object> parseAnalysisResponse(String responseText) {
         try {
@@ -166,14 +166,14 @@ public class SajuAnalysisService {
 
             // 필수 필드 검증
             if (result == null || !result.containsKey("personality") || !result.containsKey("fortune")) {
-                throw new ClaudeApiException("응답에 필수 필드가 없습니다");
+                throw new GeminiApiException("응답에 필수 필드가 없습니다");
             }
 
             return result;
 
         } catch (JsonSyntaxException e) {
             log.error("JSON 파싱 실패: {}", responseText, e);
-            throw new ClaudeApiException("AI 응답 파싱 실패", e);
+            throw new GeminiApiException("AI 응답 파싱 실패", e);
         }
     }
 

@@ -21,9 +21,9 @@ spring:
 server:
   port: 8888
 
-claude:
+gemini:
   api:
-    key: ${CLAUDE_API_KEY:your-api-key-here}
+    key: ${GEMINI_API_KEY:your-api-key-here}
 
 logging:
   level:
