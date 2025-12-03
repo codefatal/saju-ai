@@ -29,7 +29,16 @@
       "Bash(gradle build:*)",
       "Bash(gradle bootRun)",
       "Bash(netstat:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(for icon in \"FaExchangeAlt\" \"FaYinYang\" \"FaMapMarkerAlt\" \"FaQuoteLeft\" \"FaTimesCircle\")",
+      "Bash(do echo \"=== $icon ===\")",
+      "Bash(done)",
+      "Bash(for icon in \"FaCrystalBall\" \"FaGem\" \"FaShieldAlt\" \"FaHeartbeat\")",
+      "Bash(for icon in \"FaMoon\" \"FaStar\" \"FaBrain\" \"FaBook\" \"FaCrystalBall\" \"FaLightbulb\" \"FaExclamationTriangle\")",
+      "Bash(do echo -n \"$icon: \")",
+      "Bash(npm run build:*)",
+      "Bash(git reset:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

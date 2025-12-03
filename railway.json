@@ -1,3 +1,0 @@
-{
-  "buildCommand": "./gradlew -p backend clean bootJar -x test"
-}

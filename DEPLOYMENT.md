@@ -189,7 +189,7 @@ CREATE POLICY "Enable insert for authenticated users only"
 ```gradle
 dependencies {
   implementation 'io.github.supabase:postgrest-kt:1.0.0'
-  implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+  implementation 'com.squareup.okhttp3:okhttp:4.11.0'rmfjaus
   implementation 'com.google.code.gson:gson:2.10.1'
 }
 ```
