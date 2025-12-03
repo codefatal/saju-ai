@@ -7,7 +7,7 @@ spring:
     show-sql: false
 
 server:
-  port: ${PORT:3000}
+  port: ${PORT:8888}
 
 gemini:
   api:
