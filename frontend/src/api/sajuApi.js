@@ -174,6 +174,34 @@ export const analyzeCompatibility = async (compatibilityData) => {
   }
 };
 
+/**
+ * 타로 카드 리딩
+ * @param {Object} tarotData - 타로 리딩 정보 (질문, 카테고리)
+ * @returns {Promise} 타로 리딩 결과
+ */
+export const getTarotReading = async (tarotData) => {
+  try {
+    const response = await apiClient.post('/tarot/reading', tarotData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
+ * 꿈 해몽
+ * @param {Object} dreamData - 꿈 내용 정보 (꿈 내용, 카테고리, 분위기)
+ * @returns {Promise} 꿈 해몽 결과
+ */
+export const interpretDream = async (dreamData) => {
+  try {
+    const response = await apiClient.post('/dream/interpret', dreamData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
 export default {
   analyzeSaju,
   getHistory,
@@ -184,4 +212,6 @@ export default {
   getZodiacFortune,
   convertCalendar,
   analyzeCompatibility,
+  getTarotReading,
+  interpretDream,
 };

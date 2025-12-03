@@ -9,6 +9,8 @@ import LuckyItemsPage from './pages/LuckyItemsPage';
 import ZodiacFortunePage from './pages/ZodiacFortunePage';
 import CalendarConverterPage from './pages/CalendarConverterPage';
 import CompatibilityPage from './pages/CompatibilityPage';
+import TarotPage from './pages/TarotPage';
+import DreamPage from './pages/DreamPage';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
             <Route path="/zodiac-fortune" element={<ZodiacFortunePage />} />
             <Route path="/calendar-converter" element={<CalendarConverterPage />} />
             <Route path="/compatibility" element={<CompatibilityPage />} />
+            <Route path="/tarot" element={<TarotPage />} />
+            <Route path="/dream" element={<DreamPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="*" element={
               <div className="min-h-screen flex items-center justify-center">

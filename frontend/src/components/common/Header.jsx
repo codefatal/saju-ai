@@ -14,6 +14,8 @@ const Header = () => {
     { path: '/zodiac-fortune', label: '띠별운세' },
     { path: '/lucky-items', label: '럭키아이템' },
     { path: '/calendar-converter', label: '음양력변환' },
+    { path: '/tarot', label: '타로카드' },
+    { path: '/dream', label: '꿈해몽' },
     { path: '/history', label: '분석이력' },
   ];
 

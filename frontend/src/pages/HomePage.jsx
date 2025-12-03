@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt } from 'react-icons/fa';
+import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt, FaMagic, FaMoon } from 'react-icons/fa';
 
 const HomePage = () => {
   const services = [
@@ -44,6 +44,20 @@ const HomePage = () => {
       title: '음력/양력 변환',
       description: '음력과 양력을 간편하게 변환하세요',
       gradient: 'from-indigo-500 to-blue-500',
+    },
+    {
+      path: '/tarot',
+      icon: <FaMagic className="text-5xl" />,
+      title: '타로 카드',
+      description: '타로 카드로 질문에 대한 답을 얻어보세요',
+      gradient: 'from-purple-600 to-indigo-600',
+    },
+    {
+      path: '/dream',
+      icon: <FaMoon className="text-5xl" />,
+      title: '꿈 해몽',
+      description: '꿈의 의미를 심리학과 전통으로 풀어드립니다',
+      gradient: 'from-blue-600 to-indigo-700',
     },
     {
       path: '/history',
