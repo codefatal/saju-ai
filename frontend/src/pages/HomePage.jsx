@@ -156,32 +156,175 @@ const HomePage = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
             원하는 서비스를 선택하세요
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <Link
-                key={service.path}
-                to={service.path}
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
-                <div className="relative p-8 text-white">
-                  <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                    {service.icon}
+
+          {/* 사주운세 */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-blue-500">
+              🔮 사주운세
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.slice(0, 3).map((service, index) => (
+                <Link
+                  key={service.path}
+                  to={service.path}
+                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
+                  <div className="relative p-8 text-white">
+                    <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                    <p className="text-white/90 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
+                    <div className="mt-6 inline-flex items-center text-sm font-medium">
+                      <span>시작하기</span>
+                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                  <p className="text-white/90 text-sm leading-relaxed">
-                    {service.description}
-                  </p>
-                  <div className="mt-6 inline-flex items-center text-sm font-medium">
-                    <span>시작하기</span>
-                    <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* 궁합·길일 */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-pink-500">
+              💕 궁합·길일
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.slice(3, 5).map((service, index) => (
+                <Link
+                  key={service.path}
+                  to={service.path}
+                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
+                  <div className="relative p-8 text-white">
+                    <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                    <p className="text-white/90 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
+                    <div className="mt-6 inline-flex items-center text-sm font-medium">
+                      <span>시작하기</span>
+                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* 신점 */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-purple-500">
+              🌙 신점
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.slice(5, 8).map((service, index) => (
+                <Link
+                  key={service.path}
+                  to={service.path}
+                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
+                  <div className="relative p-8 text-white">
+                    <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                    <p className="text-white/90 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
+                    <div className="mt-6 inline-flex items-center text-sm font-medium">
+                      <span>시작하기</span>
+                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* 도구 */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-orange-500">
+              🛠️ 도구
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.slice(8, 14).map((service, index) => (
+                <Link
+                  key={service.path}
+                  to={service.path}
+                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
+                  <div className="relative p-8 text-white">
+                    <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                    <p className="text-white/90 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
+                    <div className="mt-6 inline-flex items-center text-sm font-medium">
+                      <span>시작하기</span>
+                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* 분석 이력 */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-gray-500">
+              📊 분석 이력
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.slice(14).map((service, index) => (
+                <Link
+                  key={service.path}
+                  to={service.path}
+                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
+                  <div className="relative p-8 text-white">
+                    <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                    <p className="text-white/90 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
+                    <div className="mt-6 inline-flex items-center text-sm font-medium">
+                      <span>시작하기</span>
+                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
