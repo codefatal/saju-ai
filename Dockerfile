@@ -20,4 +20,4 @@ COPY --from=builder /app/backend/build/libs/*.jar app.jar
 EXPOSE 8080
 
 # 애플리케이션 실행
-CMD java -jar app.jar --spring.profiles.active=prod --server.port=${PORT:-8080}
+ENTRYPOINT ["sh", "-c", "java -jar app.jar --spring.profiles.active=prod --server.port=${PORT:-8080}"]
