@@ -3,11 +3,15 @@ package com.sajuai.controller;
 import com.sajuai.dto.DailyFortuneRequest;
 import com.sajuai.dto.DailyFortuneResponse;
 import com.sajuai.dto.DailyMessageResponse;
+import com.sajuai.dto.FortuneGachaResponse;
+import com.sajuai.dto.HourlyFortuneResponse;
 import com.sajuai.dto.LuckyItemsResponse;
 import com.sajuai.dto.ZodiacFortuneRequest;
 import com.sajuai.dto.ZodiacFortuneResponse;
 import com.sajuai.service.DailyFortuneService;
 import com.sajuai.service.DailyMessageService;
+import com.sajuai.service.FortuneGachaService;
+import com.sajuai.service.HourlyFortuneService;
 import com.sajuai.service.LuckyItemsService;
 import com.sajuai.service.ZodiacFortuneService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +39,8 @@ public class FortuneController {
     private final LuckyItemsService luckyItemsService;
     private final ZodiacFortuneService zodiacFortuneService;
     private final DailyMessageService dailyMessageService;
+    private final FortuneGachaService fortuneGachaService;
+    private final HourlyFortuneService hourlyFortuneService;
 
     /**
      * 오늘의 운세 조회
@@ -111,6 +117,42 @@ public class FortuneController {
         DailyMessageResponse response = dailyMessageService.getDailyMessage();
 
         log.info("GET /api/fortune/daily-message - 오늘의 한마디 완료");
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 운세 뽑기
+     */
+    @GetMapping("/gacha")
+    @Operation(summary = "운세 뽑기", description = "랜덤으로 운세를 뽑습니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    public ResponseEntity<FortuneGachaResponse> drawFortune() {
+        log.info("GET /api/fortune/gacha - 운세 뽑기 요청");
+
+        FortuneGachaResponse response = fortuneGachaService.drawFortune();
+
+        log.info("GET /api/fortune/gacha - 운세 뽑기 완료: {}", response.getTitle());
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 시간대 운세 조회
+     */
+    @GetMapping("/hourly")
+    @Operation(summary = "시간대 운세", description = "오늘의 시간대별 운세를 조회합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    public ResponseEntity<HourlyFortuneResponse> getHourlyFortune() {
+        log.info("GET /api/fortune/hourly - 시간대 운세 요청");
+
+        HourlyFortuneResponse response = hourlyFortuneService.getHourlyFortune();
+
+        log.info("GET /api/fortune/hourly - 시간대 운세 완료: {} 시간대", response.getHours().size());
         return ResponseEntity.ok(response);
     }
 }

@@ -90,6 +90,32 @@ export const getDailyMessage = async () => {
 };
 
 /**
+ * 운세 뽑기
+ * @returns {Promise} 랜덤 운세
+ */
+export const drawFortune = async () => {
+  try {
+    const response = await apiClient.get('/fortune/gacha');
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
+ * 시간대 운세 조회
+ * @returns {Promise} 시간대별 운세
+ */
+export const getHourlyFortune = async () => {
+  try {
+    const response = await apiClient.get('/fortune/hourly');
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
  * 오늘의 운세 조회
  * @param {Object} birthData - 생년월일 정보
  * @returns {Promise} 오늘의 운세
@@ -234,6 +260,8 @@ export default {
   getHistory,
   getSajuById,
   getDailyMessage,
+  drawFortune,
+  getHourlyFortune,
   getDailyFortune,
   getLuckyItems,
   getZodiacFortune,

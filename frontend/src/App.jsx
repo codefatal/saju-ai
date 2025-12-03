@@ -16,6 +16,8 @@ import LuckyDayPage from './pages/LuckyDayPage';
 import TojeongPage from './pages/TojeongPage';
 import NameAnalysisPage from './pages/NameAnalysisPage';
 import DailyMessagePage from './pages/DailyMessagePage';
+import FortuneGachaPage from './pages/FortuneGachaPage';
+import HourlyFortunePage from './pages/HourlyFortunePage';
 import useSajuStore from './store/useSajuStore';
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
             <Route path="/tojeong" element={<TojeongPage />} />
             <Route path="/name-analysis" element={<NameAnalysisPage />} />
             <Route path="/daily-message" element={<DailyMessagePage />} />
+            <Route path="/fortune-gacha" element={<FortuneGachaPage />} />
+            <Route path="/hourly-fortune" element={<HourlyFortunePage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="*" element={
               <div className="min-h-screen flex items-center justify-center">
