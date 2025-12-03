@@ -5,6 +5,7 @@ import com.sajuai.dto.*;
 import com.sajuai.model.User;
 import com.sajuai.service.AuthService;
 import com.sajuai.service.OAuth2Service;
+import com.sajuai.service.UserProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +20,17 @@ public class AuthController {
     private final AuthService authService;
     private final OAuth2Service oauth2Service;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserProfileService userProfileService;
 
-    public AuthController(AuthService authService, OAuth2Service oauth2Service, JwtTokenProvider jwtTokenProvider) {
+    public AuthController(
+            AuthService authService,
+            OAuth2Service oauth2Service,
+            JwtTokenProvider jwtTokenProvider,
+            UserProfileService userProfileService) {
         this.authService = authService;
         this.oauth2Service = oauth2Service;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.userProfileService = userProfileService;
     }
 
     /**
@@ -184,6 +191,59 @@ public class AuthController {
             log.error("Failed to disconnect OAuth provider", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new MessageResponse("Failed to disconnect OAuth provider"));
+        }
+    }
+
+    /**
+     * 사용자 프로필 조회
+     *
+     * @param authHeader Authorization 헤더
+     * @return UserProfileDTO
+     */
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfileDTO> getUserProfile(@RequestHeader("Authorization") String authHeader) {
+        try {
+            String token = jwtTokenProvider.resolveToken(authHeader);
+
+            if (!jwtTokenProvider.validateToken(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            }
+
+            Long userId = jwtTokenProvider.getUserIdFromToken(token);
+            UserProfileDTO profile = userProfileService.getUserProfile(userId);
+
+            return ResponseEntity.ok(profile);
+        } catch (Exception e) {
+            log.error("Failed to get user profile", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    /**
+     * 사용자 프로필 저장/업데이트
+     *
+     * @param authHeader Authorization 헤더
+     * @param profileDTO 프로필 정보
+     * @return UserProfileDTO
+     */
+    @PostMapping("/profile")
+    public ResponseEntity<UserProfileDTO> saveUserProfile(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestBody UserProfileDTO profileDTO) {
+        try {
+            String token = jwtTokenProvider.resolveToken(authHeader);
+
+            if (!jwtTokenProvider.validateToken(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            }
+
+            Long userId = jwtTokenProvider.getUserIdFromToken(token);
+            UserProfileDTO savedProfile = userProfileService.saveUserProfile(userId, profileDTO);
+
+            return ResponseEntity.ok(savedProfile);
+        } catch (Exception e) {
+            log.error("Failed to save user profile", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
