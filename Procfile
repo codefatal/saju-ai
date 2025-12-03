@@ -1,1 +1,1 @@
-web: cd backend && java -jar build/libs/*.jar --spring.profiles.active=prod
+web: java -jar backend/build/libs/*.jar --spring.profiles.active=prod

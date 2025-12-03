@@ -1,4 +1,3 @@
 {
-  "buildCommand": "cd backend && ./gradlew clean bootJar -x test",
-  "startCommand": "cd backend && java -jar build/libs/*.jar --spring.profiles.active=prod"
+  "buildCommand": "./gradlew -p backend clean bootJar -x test"
 }
