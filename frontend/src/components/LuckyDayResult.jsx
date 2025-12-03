@@ -1,7 +1,10 @@
-import React from 'react';
-import { FaCalendarCheck, FaStar, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaCalendarCheck, FaStar, FaCheckCircle, FaTimesCircle, FaShare } from 'react-icons/fa';
+import { shareResult } from '../utils/shareUtils';
 
 const LuckyDayResult = ({ result }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
+
   const getRatingColor = (rating) => {
     const colors = {
       EXCELLENT: 'from-yellow-400 to-orange-400',
@@ -96,6 +99,34 @@ const LuckyDayResult = ({ result }) => {
         <p className="text-sm text-green-700 text-center">
           📅 길일은 참고용입니다. 최종 결정은 본인의 상황에 맞게 하시기 바랍니다.
         </p>
+      </div>
+
+      {/* Share Button */}
+      <div className="text-center">
+        <div className="relative inline-block">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={() => {
+                  const shareText = `${result.startDate} ~ ${result.endDate}의 길일을 확인해보세요! - 모두의사주AI`;
+                  shareResult('길일 추천', shareText, window.location.href);
+                  setShowShareMenu(false);
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

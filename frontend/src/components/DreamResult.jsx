@@ -1,7 +1,15 @@
-import React from 'react';
-import { FaMoon, FaStar, FaBrain, FaBook, FaGem, FaLightbulb, FaExclamationTriangle } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaMoon, FaStar, FaBrain, FaBook, FaGem, FaLightbulb, FaExclamationTriangle, FaShare } from 'react-icons/fa';
+import { shareResult, getSocialShareUrl } from '../utils/shareUtils';
 
 const DreamResult = ({ result }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
+
+  const handleShare = () => {
+    const shareText = `꿈 해몽: "${result.dreamContent}" - 모두의사주AI에서 당신의 꿈의 의미를 알아보세요!`;
+    shareResult('꿈 해몽 결과', shareText, window.location.href);
+    setShowShareMenu(false);
+  };
   const getCategoryIcon = (category) => {
     const icons = {
       PERSON: '👤',
@@ -161,10 +169,34 @@ const DreamResult = ({ result }) => {
       </div>
 
       {/* Footer Note */}
-      <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
+      <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200 mb-6">
         <p className="text-sm text-indigo-700 text-center">
           🌙 꿈 해몽은 참고용입니다. 꿈은 개인의 무의식과 경험이 반영된 것이므로, 자신의 상황에 맞게 해석하세요.
         </p>
+      </div>
+
+      {/* Share Button */}
+      <div className="text-center">
+        <div className="relative inline-block">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={handleShare}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

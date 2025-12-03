@@ -1,6 +1,9 @@
-import { FaUser, FaStar, FaBriefcase, FaHeart, FaHeartbeat, FaLightbulb, FaPalette, FaDice } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaUser, FaStar, FaBriefcase, FaHeart, FaHeartbeat, FaLightbulb, FaPalette, FaDice, FaShare, FaDownload } from 'react-icons/fa';
+import { shareResult, getSocialShareUrl } from '../utils/shareUtils';
 
 const SajuResult = ({ result, onNewAnalysis }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
   if (!result) return null;
 
   const { year, month, day, hour, minute, gender, isLunar } = result;
@@ -46,8 +49,20 @@ const SajuResult = ({ result, onNewAnalysis }) => {
     },
   ];
 
+  const handleShare = () => {
+    const shareText = `${calendar} ${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분에 태어난 저의 사주 분석 결과를 확인해보세요! 모두의사주AI - https://saju-ai-five.vercel.app`;
+    shareResult('내 사주 분석 결과', shareText, window.location.href);
+    setShowShareMenu(false);
+  };
+
+  const handleSocialShare = (platform) => {
+    const shareUrl = getSocialShareUrl(platform, window.location.href, `내 사주 분석을 확인해보세요!`);
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+    setShowShareMenu(false);
+  };
+
   return (
-    <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
+    <div className="max-w-4xl mx-auto space-y-6 animate-fade-in" id="saju-result-content">
       {/* 기본 정보 */}
       <div className="card">
         <h2 className="text-3xl font-bold text-gradient mb-4 text-center">
@@ -148,6 +163,40 @@ const SajuResult = ({ result, onNewAnalysis }) => {
 
       {/* 액션 버튼들 */}
       <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <div className="relative">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={handleShare}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+              <button
+                onClick={() => handleSocialShare('facebook')}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <span className="text-blue-600 font-bold">f</span>
+                <span>Facebook</span>
+              </button>
+              <button
+                onClick={() => handleSocialShare('twitter')}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <span className="text-blue-400 font-bold">𝕏</span>
+                <span>Twitter</span>
+              </button>
+            </div>
+          )}
+        </div>
         <button onClick={onNewAnalysis} className="btn-secondary">
           다시 분석하기
         </button>

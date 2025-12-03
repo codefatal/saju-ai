@@ -1,6 +1,9 @@
-import { FaPalette, FaDice, FaUtensils, FaSpa, FaGift, FaMapMarkerAlt, FaExclamationTriangle, FaQuoteLeft } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaPalette, FaDice, FaUtensils, FaSpa, FaGift, FaMapMarkerAlt, FaExclamationTriangle, FaQuoteLeft, FaShare } from 'react-icons/fa';
+import { shareResult } from '../utils/shareUtils';
 
 const LuckyItemsResult = ({ items, onNewItems }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
   if (!items) return null;
 
   const { date, luckyColors, luckyNumbers, luckyFoods, luckyScent, luckyItems, luckyPlace, thingsToAvoid, dailyMessage } = items;
@@ -176,8 +179,32 @@ const LuckyItemsResult = ({ items, onNewItems }) => {
         </div>
       )}
 
-      {/* 다시 보기 버튼 */}
-      <div className="text-center">
+      {/* 버튼 */}
+      <div className="flex justify-center gap-4">
+        <div className="relative">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={() => {
+                  const shareText = `${date} 나의 럭키 아이템을 확인해보세요! - 모두의사주AI`;
+                  shareResult('럭키 아이템', shareText, window.location.href);
+                  setShowShareMenu(false);
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+            </div>
+          )}
+        </div>
         <button onClick={onNewItems} className="btn-secondary">
           다른 날짜로 보기
         </button>

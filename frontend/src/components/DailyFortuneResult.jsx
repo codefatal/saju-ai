@@ -1,6 +1,9 @@
-import { FaStar, FaHeart, FaMoneyBill, FaBriefcase, FaHeartbeat, FaPalette, FaDice, FaCompass, FaClock, FaLightbulb } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaStar, FaHeart, FaMoneyBill, FaBriefcase, FaHeartbeat, FaPalette, FaDice, FaCompass, FaClock, FaLightbulb, FaShare } from 'react-icons/fa';
+import { shareResult } from '../utils/shareUtils';
 
 const DailyFortuneResult = ({ fortune, onNewFortune }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
   if (!fortune) return null;
 
   const { year, month, day, hour, minute, gender, isLunar, fortuneDate } = fortune;
@@ -170,7 +173,31 @@ const DailyFortuneResult = ({ fortune, onNewFortune }) => {
       </div>
 
       {/* 다시 보기 버튼 */}
-      <div className="text-center">
+      <div className="flex justify-center gap-4">
+        <div className="relative">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={() => {
+                  const shareText = `${fortuneDate}의 오늘의 운세를 확인해보세요! - 모두의사주AI`;
+                  shareResult('오늘의 운세', shareText, window.location.href);
+                  setShowShareMenu(false);
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+            </div>
+          )}
+        </div>
         <button onClick={onNewFortune} className="btn-secondary">
           다른 날짜로 보기
         </button>

@@ -1,7 +1,10 @@
-import React from 'react';
-import { FaBook, FaStar, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaBook, FaStar, FaCheckCircle, FaExclamationTriangle, FaShare } from 'react-icons/fa';
+import { shareResult } from '../utils/shareUtils';
 
 const TojeongResult = ({ result }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
+
   const getRatingColor = (rating) => {
     const colors = {
       EXCELLENT: 'from-yellow-400 to-orange-400',
@@ -100,6 +103,34 @@ const TojeongResult = ({ result }) => {
         <p className="text-sm text-amber-700 text-center">
           📖 토정비결은 참고용입니다. 긍정적인 마음으로 한 해를 준비하세요.
         </p>
+      </div>
+
+      {/* Share Button */}
+      <div className="text-center">
+        <div className="relative inline-block">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={() => {
+                  const shareText = `${result.year}년 토정비결 운세 점수: ${result.yearlyScore}점 - 모두의사주AI`;
+                  shareResult('토정비결', shareText, window.location.href);
+                  setShowShareMenu(false);
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

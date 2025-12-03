@@ -1,7 +1,11 @@
-import { FaStar, FaCheckCircle, FaExclamationCircle, FaPalette, FaDice } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaStar, FaCheckCircle, FaExclamationCircle, FaPalette, FaDice, FaShare } from 'react-icons/fa';
 import PropTypes from 'prop-types';
+import { shareResult } from '../utils/shareUtils';
 
 const NameAnalysisResult = ({ result }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
+
   const getRatingColor = (rating) => {
     switch (rating) {
       case 'EXCELLENT':
@@ -260,6 +264,34 @@ const NameAnalysisResult = ({ result }) => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Share Button */}
+      <div className="text-center">
+        <div className="relative inline-block">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={() => {
+                  const shareText = `이름 "${result.name}" 분석 결과: ${result.overallScore}점 - 모두의사주AI`;
+                  shareResult('이름풀이', shareText, window.location.href);
+                  setShowShareMenu(false);
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,9 @@
-import { FaStar, FaHeart, FaMoneyBill, FaBriefcase, FaHeartbeat, FaPalette, FaDice, FaCompass, FaExclamationTriangle, FaLightbulb } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaStar, FaHeart, FaMoneyBill, FaBriefcase, FaHeartbeat, FaPalette, FaDice, FaCompass, FaExclamationTriangle, FaLightbulb, FaShare } from 'react-icons/fa';
+import { shareResult } from '../utils/shareUtils';
 
 const ZodiacFortuneResult = ({ fortune, onNewFortune }) => {
+  const [showShareMenu, setShowShareMenu] = useState(false);
   if (!fortune) return null;
 
   const { zodiacName, zodiacCharacter, date, overallFortune, loveFortune, moneyFortune, workFortune, healthFortune,
@@ -196,8 +199,32 @@ const ZodiacFortuneResult = ({ fortune, onNewFortune }) => {
         </div>
       )}
 
-      {/* 다시 보기 버튼 */}
-      <div className="text-center">
+      {/* 버튼 */}
+      <div className="flex justify-center gap-4">
+        <div className="relative">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={() => {
+                  const shareText = `${zodiacName}띠 (${zodiacCharacter})의 오늘 운세 - ${date} - 모두의사주AI`;
+                  shareResult('띠별운세', shareText, window.location.href);
+                  setShowShareMenu(false);
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+            </div>
+          )}
+        </div>
         <button onClick={onNewFortune} className="btn-secondary">
           다른 띠 보기
         </button>

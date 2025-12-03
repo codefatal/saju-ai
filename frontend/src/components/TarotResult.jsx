@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { FaStar, FaMoon, FaSun, FaHeart, FaBriefcase, FaDollarSign, FaHeartbeat } from 'react-icons/fa';
+import { FaStar, FaMoon, FaSun, FaHeart, FaBriefcase, FaDollarSign, FaHeartbeat, FaShare } from 'react-icons/fa';
+import { shareResult } from '../utils/shareUtils';
 
 const TarotResult = ({ result }) => {
   const [flippedCards, setFlippedCards] = useState([false, false, false]);
+  const [showShareMenu, setShowShareMenu] = useState(false);
 
   const getCategoryIcon = (category) => {
     const icons = {
@@ -161,6 +163,34 @@ const TarotResult = ({ result }) => {
         <p className="text-sm text-purple-700 text-center">
           🌙 타로 카드는 여러분의 선택을 돕는 도구입니다. 최종 결정은 항상 여러분의 자유 의지에 달려 있습니다.
         </p>
+      </div>
+
+      {/* Share Button */}
+      <div className="text-center">
+        <div className="relative inline-block">
+          <button
+            onClick={() => setShowShareMenu(!showShareMenu)}
+            className="btn-primary flex items-center justify-center space-x-2"
+          >
+            <FaShare />
+            <span>공유</span>
+          </button>
+          {showShareMenu && (
+            <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+              <button
+                onClick={() => {
+                  const shareText = `타로 리딩: "${result.question}" - 모두의사주AI에서 나의 타로 운세를 확인해보세요!`;
+                  shareResult('타로 리딩', shareText, window.location.href);
+                  setShowShareMenu(false);
+                }}
+                className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FaShare className="text-blue-500" />
+                <span>일반 공유</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <style>{`
