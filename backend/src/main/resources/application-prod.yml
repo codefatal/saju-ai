@@ -1,17 +1,10 @@
 spring:
   application:
     name: everyone-saju-ai
-  datasource:
-    hikari:
-      maximum-pool-size: 5
-      connection-timeout: 30000
-      idle-timeout: 600000
-      max-lifetime: 1800000
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
-    defer-datasource-initialization: true
 
 server:
   port: ${PORT:8080}
