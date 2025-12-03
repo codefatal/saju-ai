@@ -1,11 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
-import { FaStar, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
+import { FaStar, FaBars, FaTimes, FaChevronDown, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { useState } from 'react';
+import useAuthStore from '../../store/useAuthStore';
 
 const Header = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { user, logout } = useAuthStore();
 
   const navItems = [
     { path: '/', label: '홈' },
@@ -107,6 +110,50 @@ const Header = () => {
             ))}
           </nav>
 
+          {/* User Authentication Menu */}
+          <div className="hidden md:flex items-center space-x-4">
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 transition-colors"
+                >
+                  <FaUser size={16} />
+                  <span>{user.username}</span>
+                  <FaChevronDown size={12} />
+                </button>
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-0 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
+                    <Link
+                      to="/mypage"
+                      onClick={() => setIsUserMenuOpen(false)}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 first:rounded-t-md"
+                    >
+                      마이페이지
+                    </Link>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setIsUserMenuOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 last:rounded-b-md flex items-center gap-2"
+                    >
+                      <FaSignOutAlt size={14} />
+                      로그아웃
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-md text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 transition-colors"
+              >
+                로그인
+              </Link>
+            )}
+          </div>
+
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -163,6 +210,40 @@ const Header = () => {
                 </Link>
               )
             ))}
+
+            {/* Mobile User Menu */}
+            <div className="border-t pt-4 mt-4">
+              {user ? (
+                <>
+                  <Link
+                    to="/mypage"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50 mb-2"
+                  >
+                    <FaUser className="inline mr-2" />
+                    마이페이지
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50"
+                  >
+                    <FaSignOutAlt className="inline mr-2" />
+                    로그아웃
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-white bg-primary-500 hover:bg-primary-600 text-center"
+                >
+                  로그인
+                </Link>
+              )}
+            </div>
           </nav>
         )}
       </div>

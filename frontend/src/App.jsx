@@ -18,12 +18,17 @@ import NameAnalysisPage from './pages/NameAnalysisPage';
 import DailyMessagePage from './pages/DailyMessagePage';
 import FortuneGachaPage from './pages/FortuneGachaPage';
 import HourlyFortunePage from './pages/HourlyFortunePage';
+import LoginPage from './pages/LoginPage';
+import AuthCallbackPage from './pages/AuthCallbackPage';
+import MyPage from './pages/MyPage';
 import useSajuStore from './store/useSajuStore';
+import useAuthStore from './store/useAuthStore';
 
 function App() {
   // App 초기화 시 localStorage에서 데이터 로드
   useEffect(() => {
     useSajuStore.getState().loadFromStorage();
+    useAuthStore.getState().loadFromStorage();
   }, []);
   return (
     <Router>
@@ -32,6 +37,9 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/auth/callback" element={<AuthCallbackPage />} />
+            <Route path="/mypage" element={<MyPage />} />
             <Route path="/analysis" element={<AnalysisPage />} />
             <Route path="/daily-fortune" element={<DailyFortunePage />} />
             <Route path="/lucky-items" element={<LuckyItemsPage />} />
