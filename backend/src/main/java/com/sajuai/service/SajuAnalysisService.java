@@ -188,20 +188,6 @@ public class SajuAnalysisService {
     }
 
     /**
-     * 특정 사주 결과 엔티티 조회 (PDF 생성용)
-     */
-    @Transactional(readOnly = true)
-    public SajuResult getSajuResultEntity(Long id) {
-        SajuResult result = sajuResultRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("사주 분석 결과를 찾을 수 없습니다: id=" + id));
-
-        // Eager loading: BirthData를 Transactional 범위 내에서 강제로 로드
-        result.getBirthData().getYear(); // 접근하여 초기화
-
-        return result;
-    }
-
-    /**
      * 최근 사주 분석 이력 조회
      */
     @Transactional(readOnly = true)

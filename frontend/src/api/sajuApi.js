@@ -77,34 +77,6 @@ export const getSajuById = async (id) => {
 };
 
 /**
- * PDF 다운로드
- * @param {number} id - 분석 ID
- * @returns {Promise} PDF 파일 다운로드
- */
-export const downloadPdf = async (id) => {
-  try {
-    const response = await apiClient.get(`/saju/${id}/pdf`, {
-      responseType: 'blob',
-    });
-
-    // Blob으로 파일 다운로드
-    const blob = new Blob([response.data], { type: 'application/pdf' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `saju_result_${id}.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-
-    return true;
-  } catch (error) {
-    throw error.response?.data || error;
-  }
-};
-
-/**
  * 오늘의 운세 조회
  * @param {Object} birthData - 생년월일 정보
  * @returns {Promise} 오늘의 운세
@@ -248,7 +220,6 @@ export default {
   analyzeSaju,
   getHistory,
   getSajuById,
-  downloadPdf,
   getDailyFortune,
   getLuckyItems,
   getZodiacFortune,

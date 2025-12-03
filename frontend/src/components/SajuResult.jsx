@@ -1,23 +1,7 @@
-import { useState } from 'react';
-import { FaUser, FaStar, FaBriefcase, FaHeart, FaHeartbeat, FaLightbulb, FaPalette, FaDice, FaFilePdf } from 'react-icons/fa';
-import { downloadPdf } from '../api/sajuApi';
+import { FaUser, FaStar, FaBriefcase, FaHeart, FaHeartbeat, FaLightbulb, FaPalette, FaDice } from 'react-icons/fa';
 
 const SajuResult = ({ result, onNewAnalysis }) => {
-  const [isDownloading, setIsDownloading] = useState(false);
-
   if (!result) return null;
-
-  const handleDownloadPdf = async () => {
-    try {
-      setIsDownloading(true);
-      await downloadPdf(result.id);
-    } catch (error) {
-      console.error('PDF 다운로드 실패:', error);
-      alert('PDF 다운로드에 실패했습니다. 다시 시도해주세요.');
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   const { year, month, day, hour, minute, gender, isLunar } = result;
   const calendar = isLunar ? '음력' : '양력';
@@ -164,14 +148,6 @@ const SajuResult = ({ result, onNewAnalysis }) => {
 
       {/* 액션 버튼들 */}
       <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <button
-          onClick={handleDownloadPdf}
-          disabled={isDownloading}
-          className="btn-primary flex items-center justify-center space-x-2"
-        >
-          <FaFilePdf />
-          <span>{isDownloading ? 'PDF 생성 중...' : 'PDF 다운로드'}</span>
-        </button>
         <button onClick={onNewAnalysis} className="btn-secondary">
           다시 분석하기
         </button>
