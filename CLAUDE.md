@@ -251,6 +251,78 @@ src/
 - Username: `sa`
 - Password: (비워둠)
 
+## 인증 시스템 (Authentication System)
+
+### OAuth 2.0 구현
+
+프로젝트는 Google과 Kakao를 통한 OAuth 2.0 소셜 로그인을 지원합니다.
+
+#### 백엔드 구현
+
+- **JwtTokenProvider** (`com/sajuai/auth/JwtTokenProvider.java`): JWT 토큰 생성/검증
+- **SecurityConfig** (`com/sajuai/config/SecurityConfig.java`): Spring Security 설정
+- **JwtAuthenticationFilter** (`com/sajuai/security/JwtAuthenticationFilter.java`): JWT 필터
+- **AuthService** (`com/sajuai/service/AuthService.java`): 인증 비즈니스 로직
+- **OAuth2Service** (`com/sajuai/service/OAuth2Service.java`): OAuth 제공자 통합
+- **UserProfileService** (`com/sajuai/service/UserProfileService.java`): 사용자 프로필 관리
+
+#### 프론트엔드 구현
+
+- **useAuthStore** (`frontend/src/store/useAuthStore.js`): Zustand 기반 인증 상태 관리
+- **authApi** (`frontend/src/api/authApi.js`): 인증 API 클라이언트
+- **LoginPage** (`frontend/src/pages/LoginPage.jsx`): 로그인 페이지
+- **AuthCallbackPage** (`frontend/src/pages/AuthCallbackPage.jsx`): OAuth 콜백 처리
+- **MyPage** (`frontend/src/pages/MyPage.jsx`): 사용자 프로필 관리
+
+#### 주요 API 엔드포인트
+
+```
+POST /api/auth/oauth/google/callback      # Google OAuth 콜백
+POST /api/auth/oauth/kakao/callback       # Kakao OAuth 콜백
+POST /api/auth/refresh                    # Access Token 갱신
+GET  /api/auth/me                         # 현재 사용자 정보 조회
+POST /api/auth/logout                     # 로그아웃
+POST /api/auth/disconnect/{provider}      # OAuth 제공자 연결 해제
+GET  /api/auth/profile                    # 사용자 프로필 조회
+POST /api/auth/profile                    # 사용자 프로필 저장/업데이트
+```
+
+#### OAuth 설정 안내
+
+자세한 Google과 Kakao OAuth 설정 방법은 [OAUTH_SETUP.md](./OAUTH_SETUP.md)를 참고하세요.
+
+### 인증 플로우
+
+1. **로그인**: 사용자가 Google/Kakao로 로그인 클릭
+2. **인가**: OAuth 제공자에서 사용자 정보 제공
+3. **토큰 발급**: 백엔드에서 JWT Access/Refresh 토큰 발급
+4. **저장**: 프론트엔드에서 토큰을 localStorage에 저장
+5. **API 호출**: 모든 API 요청에 Authorization 헤더 포함
+6. **토큰 갱신**: Access Token 만료 시 Refresh Token으로 갱신
+
+### 데이터 모델
+
+#### User 엔티티
+- `id`: 사용자 ID
+- `email`: 이메일 주소
+- `username`: 사용자명
+- `provider`: OAuth 제공자 (GOOGLE, KAKAO)
+- `providerId`: 제공자 사용자 ID
+- `profileImageUrl`: 프로필 이미지 URL
+- `isActive`: 활성 여부
+- `createdAt`, `updatedAt`: 타임스탬프
+
+#### UserProfile 엔티티
+- `year`, `month`, `day`: 생년월일
+- `hour`, `minute`: 생시
+- `gender`: 성별 (MALE, FEMALE, NOT_SPECIFIED)
+- `isLunar`: 음력 여부
+- `birthDataId`: BirthData FK (선택사항)
+
+#### OAuthConnection 엔티티
+- 다중 OAuth 제공자 지원
+- 제공자별 연결/해제 추적
+
 ## 작업 현황
 
 ### ✅ 완료된 작업
@@ -263,6 +335,9 @@ src/
 7. **PDF 다운로드 기능 제거** - 포맷팅 문제로 인해 완전 제거
 8. **Google AdSense 코드 추가** - index.html에 스크립트 삽입
 9. **localStorage 기반 분석 이력 영속성** - 로그인 없이 브라우저 기반 저장
+10. **OAuth 2.0 소셜 로그인 구현** - Google/Kakao 통합 인증
+11. **JWT 기반 토큰 관리** - Access/Refresh 토큰 전략
+12. **사용자 프로필 관리** - 사주팔자 정보 저장
 
 ### 📋 진행 중인 작업
 - 현재 배포 완료 및 정상 운영 중
