@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt, FaMagic, FaMoon } from 'react-icons/fa';
+import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt, FaMagic, FaMoon, FaCalendarCheck } from 'react-icons/fa';
 
 const HomePage = () => {
   const services = [
@@ -58,6 +58,13 @@ const HomePage = () => {
       title: '꿈 해몽',
       description: '꿈의 의미를 심리학과 전통으로 풀어드립니다',
       gradient: 'from-blue-600 to-indigo-700',
+    },
+    {
+      path: '/lucky-day',
+      icon: <FaCalendarCheck className="text-5xl" />,
+      title: '길일 선택',
+      description: '좋은 날을 선택하여 일을 시작하세요',
+      gradient: 'from-green-600 to-emerald-600',
     },
     {
       path: '/history',

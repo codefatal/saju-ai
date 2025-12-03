@@ -202,6 +202,20 @@ export const interpretDream = async (dreamData) => {
   }
 };
 
+/**
+ * 길일 선택
+ * @param {Object} luckyDayData - 목적, 날짜 범위, 생년월일 정보 (선택)
+ * @returns {Promise} 길일 추천 결과
+ */
+export const findLuckyDays = async (luckyDayData) => {
+  try {
+    const response = await apiClient.post('/lucky-day/find', luckyDayData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
 export default {
   analyzeSaju,
   getHistory,
@@ -214,4 +228,5 @@ export default {
   analyzeCompatibility,
   getTarotReading,
   interpretDream,
+  findLuckyDays,
 };
