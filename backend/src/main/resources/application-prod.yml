@@ -9,8 +9,9 @@ spring:
       max-lifetime: 1800000
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: false
+    defer-datasource-initialization: true
 
 server:
   port: ${PORT:8080}
