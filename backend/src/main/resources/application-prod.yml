@@ -2,8 +2,10 @@ spring:
   application:
     name: everyone-saju-ai
   datasource:
-    url: ${DATABASE_URL}?sslmode=require
+    url: jdbc:postgresql://postgres:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require
     driver-class-name: org.postgresql.Driver
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     hikari:
       maximum-pool-size: 5
       connection-timeout: 30000
