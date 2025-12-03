@@ -39,6 +39,7 @@ const Header = () => {
       label: '도구',
       category: true,
       submenu: [
+        { path: '/daily-message', label: '오늘의한마디' },
         { path: '/lucky-items', label: '럭키아이템' },
         { path: '/calendar-converter', label: '음양력변환' },
         { path: '/name-analysis', label: '이름풀이' },

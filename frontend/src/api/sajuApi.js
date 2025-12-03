@@ -77,6 +77,19 @@ export const getSajuById = async (id) => {
 };
 
 /**
+ * 오늘의 한마디 조회
+ * @returns {Promise} 오늘의 한마디
+ */
+export const getDailyMessage = async () => {
+  try {
+    const response = await apiClient.get('/fortune/daily-message');
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
  * 오늘의 운세 조회
  * @param {Object} birthData - 생년월일 정보
  * @returns {Promise} 오늘의 운세
@@ -220,6 +233,7 @@ export default {
   analyzeSaju,
   getHistory,
   getSajuById,
+  getDailyMessage,
   getDailyFortune,
   getLuckyItems,
   getZodiacFortune,

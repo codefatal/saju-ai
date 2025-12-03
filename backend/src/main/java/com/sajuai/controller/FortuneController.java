@@ -2,10 +2,12 @@ package com.sajuai.controller;
 
 import com.sajuai.dto.DailyFortuneRequest;
 import com.sajuai.dto.DailyFortuneResponse;
+import com.sajuai.dto.DailyMessageResponse;
 import com.sajuai.dto.LuckyItemsResponse;
 import com.sajuai.dto.ZodiacFortuneRequest;
 import com.sajuai.dto.ZodiacFortuneResponse;
 import com.sajuai.service.DailyFortuneService;
+import com.sajuai.service.DailyMessageService;
 import com.sajuai.service.LuckyItemsService;
 import com.sajuai.service.ZodiacFortuneService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,6 +34,7 @@ public class FortuneController {
     private final DailyFortuneService dailyFortuneService;
     private final LuckyItemsService luckyItemsService;
     private final ZodiacFortuneService zodiacFortuneService;
+    private final DailyMessageService dailyMessageService;
 
     /**
      * 오늘의 운세 조회
@@ -90,6 +93,24 @@ public class FortuneController {
         ZodiacFortuneResponse response = zodiacFortuneService.getZodiacFortune(request);
 
         log.info("POST /api/fortune/zodiac - 띠별 운세 완료");
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 오늘의 한마디 조회
+     */
+    @GetMapping("/daily-message")
+    @Operation(summary = "오늘의 한마디", description = "사주 기반 오늘의 격려 메시지를 제공합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    public ResponseEntity<DailyMessageResponse> getDailyMessage() {
+        log.info("GET /api/fortune/daily-message - 오늘의 한마디 요청");
+
+        DailyMessageResponse response = dailyMessageService.getDailyMessage();
+
+        log.info("GET /api/fortune/daily-message - 오늘의 한마디 완료");
         return ResponseEntity.ok(response);
     }
 }

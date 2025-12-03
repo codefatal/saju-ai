@@ -38,7 +38,9 @@
       "Bash(do echo -n \"$icon: \")",
       "Bash(npm run build:*)",
       "Bash(git reset:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": []

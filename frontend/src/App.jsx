@@ -15,6 +15,7 @@ import DreamPage from './pages/DreamPage';
 import LuckyDayPage from './pages/LuckyDayPage';
 import TojeongPage from './pages/TojeongPage';
 import NameAnalysisPage from './pages/NameAnalysisPage';
+import DailyMessagePage from './pages/DailyMessagePage';
 import useSajuStore from './store/useSajuStore';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/lucky-day" element={<LuckyDayPage />} />
             <Route path="/tojeong" element={<TojeongPage />} />
             <Route path="/name-analysis" element={<NameAnalysisPage />} />
+            <Route path="/daily-message" element={<DailyMessagePage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="*" element={
               <div className="min-h-screen flex items-center justify-center">
