@@ -1,1 +1,1 @@
-web: java -jar backend/build/libs/*.jar --spring.profiles.active=prod
+web: bash start.sh
