@@ -250,3 +250,31 @@ src/
 - JDBC URL: `jdbc:h2:mem:sajudb`
 - Username: `sa`
 - Password: (비워둠)
+
+## 작업 현황
+
+### ✅ 완료된 작업
+1. **Vercel + Railway 배포 설정** - 자동 CI/CD 구성
+2. **PostgreSQL 데이터베이스 연동** - Railway PostgreSQL 통합
+3. **CORS 설정 수정** - WebMvcConfigurer → CorsFilter로 변경
+4. **포트 바인딩 수정** - Railway 포트 8888로 명시
+5. **Lazy Loading 이슈 해결** - BirthData Eager Loading 구현
+6. **행운의 색상/숫자 정렬 수정** - justify-center 클래스 추가
+7. **PDF 다운로드 기능 제거** - 포맷팅 문제로 인해 완전 제거
+8. **Google AdSense 코드 추가** - index.html에 스크립트 삽입
+9. **localStorage 기반 분석 이력 영속성** - 로그인 없이 브라우저 기반 저장
+
+### 📋 진행 중인 작업
+- 현재 배포 완료 및 정상 운영 중
+
+### 🔄 향후 작업 예정 (우선순위 미정)
+- [ ] 로그인/회원가입 기능 구현 (선택사항)
+- [ ] 데이터베이스 기반 이력 저장 (로그인 후)
+- [ ] AdSense 광고 배치 최적화
+- [ ] 모바일 반응형 UI 개선
+- [ ] 성능 최적화 (이미지 최적화, 코드 분할)
+- [ ] SEO 최적화 (메타 태그, 오픈그래프)
+- [ ] 에러 페이지 및 에러 핸들링 개선
+- [ ] 분석 결과 공유 기능 추가
+- [ ] 다크모드 지원 추가
+- [ ] 배치 크론 작업 (일일 운세, 길일 자동 계산)
