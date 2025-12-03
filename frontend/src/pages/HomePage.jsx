@@ -67,6 +67,13 @@ const HomePage = () => {
       gradient: 'from-green-600 to-emerald-600',
     },
     {
+      path: '/tojeong',
+      icon: <FaBookOpen className="text-5xl" />,
+      title: '토정비결',
+      description: '전통 토정비결로 연운을 확인하세요',
+      gradient: 'from-amber-600 to-orange-600',
+    },
+    {
       path: '/history',
       icon: <FaHistory className="text-5xl" />,
       title: '분석 이력',

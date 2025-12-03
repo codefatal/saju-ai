@@ -17,6 +17,7 @@ const Header = () => {
     { path: '/tarot', label: '타로카드' },
     { path: '/dream', label: '꿈해몽' },
     { path: '/lucky-day', label: '길일선택' },
+    { path: '/tojeong', label: '토정비결' },
     { path: '/history', label: '분석이력' },
   ];
 

@@ -12,6 +12,7 @@ import CompatibilityPage from './pages/CompatibilityPage';
 import TarotPage from './pages/TarotPage';
 import DreamPage from './pages/DreamPage';
 import LuckyDayPage from './pages/LuckyDayPage';
+import TojeongPage from './pages/TojeongPage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/tarot" element={<TarotPage />} />
             <Route path="/dream" element={<DreamPage />} />
             <Route path="/lucky-day" element={<LuckyDayPage />} />
+            <Route path="/tojeong" element={<TojeongPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="*" element={
               <div className="min-h-screen flex items-center justify-center">

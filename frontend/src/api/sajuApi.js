@@ -216,6 +216,20 @@ export const findLuckyDays = async (luckyDayData) => {
   }
 };
 
+/**
+ * 토정비결
+ * @param {Object} tojeongData - 연도, 생년월일 정보
+ * @returns {Promise} 토정비결 연운
+ */
+export const getTojeongFortune = async (tojeongData) => {
+  try {
+    const response = await apiClient.post('/tojeong/fortune', tojeongData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
 export default {
   analyzeSaju,
   getHistory,
@@ -229,4 +243,5 @@ export default {
   getTarotReading,
   interpretDream,
   findLuckyDays,
+  getTojeongFortune,
 };
