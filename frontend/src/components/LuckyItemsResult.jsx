@@ -32,7 +32,7 @@ const LuckyItemsResult = ({ items, onNewItems }) => {
             <FaPalette className="text-3xl text-primary-500" />
             <h3 className="text-2xl font-bold text-gray-800">행운의 색상</h3>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 justify-center">
             {luckyColors.map((color, index) => (
               <div
                 key={index}

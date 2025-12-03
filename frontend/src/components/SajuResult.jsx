@@ -126,7 +126,7 @@ const SajuResult = ({ result, onNewAnalysis }) => {
               <FaPalette className="text-2xl text-primary-500" />
               <h3 className="text-xl font-bold text-gray-800">행운의 색상</h3>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 justify-center">
               {result.luckyColors?.map((color, index) => (
                 <div
                   key={index}
@@ -148,7 +148,7 @@ const SajuResult = ({ result, onNewAnalysis }) => {
               <FaDice className="text-2xl text-secondary-500" />
               <h3 className="text-xl font-bold text-gray-800">행운의 숫자</h3>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 justify-center">
               {result.luckyNumbers?.map((number, index) => (
                 <div
                   key={index}

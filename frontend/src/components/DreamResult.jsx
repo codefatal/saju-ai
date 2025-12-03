@@ -125,7 +125,7 @@ const DreamResult = ({ result }) => {
           <div className="text-3xl">🎲</div>
           <h3 className="text-xl font-bold text-amber-900">행운의 번호</h3>
         </div>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 justify-center">
           {result.luckyNumber.split(',').map((number, index) => (
             <div
               key={index}
