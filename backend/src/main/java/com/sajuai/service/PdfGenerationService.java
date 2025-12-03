@@ -104,13 +104,10 @@ public class PdfGenerationService {
             if (sajuResult.getLuckyColors() != null || sajuResult.getLuckyNumbers() != null) {
                 StringBuilder lucky = new StringBuilder();
                 if (sajuResult.getLuckyColors() != null && !sajuResult.getLuckyColors().isEmpty()) {
-                    lucky.append("행운의 색상: ").append(String.join(", ", sajuResult.getLuckyColors())).append("\n");
+                    lucky.append("행운의 색상: ").append(sajuResult.getLuckyColors()).append("\n");
                 }
                 if (sajuResult.getLuckyNumbers() != null && !sajuResult.getLuckyNumbers().isEmpty()) {
-                    lucky.append("행운의 숫자: ");
-                    lucky.append(sajuResult.getLuckyNumbers().stream()
-                            .map(Object::toString)
-                            .collect(java.util.stream.Collectors.joining(", ")));
+                    lucky.append("행운의 숫자: ").append(sajuResult.getLuckyNumbers());
                 }
                 if (lucky.length() > 0) {
                     addSection(document, font, "행운의 요소", lucky.toString());
