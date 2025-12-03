@@ -18,6 +18,7 @@ const Header = () => {
     { path: '/dream', label: '꿈해몽' },
     { path: '/lucky-day', label: '길일선택' },
     { path: '/tojeong', label: '토정비결' },
+    { path: '/name-analysis', label: '이름풀이' },
     { path: '/history', label: '분석이력' },
   ];
 

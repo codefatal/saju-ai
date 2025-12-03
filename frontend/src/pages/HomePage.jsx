@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt, FaMagic, FaMoon, FaCalendarCheck } from 'react-icons/fa';
+import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt, FaMagic, FaMoon, FaCalendarCheck, FaPen } from 'react-icons/fa';
 
 const HomePage = () => {
   const services = [
@@ -72,6 +72,13 @@ const HomePage = () => {
       title: '토정비결',
       description: '전통 토정비결로 연운을 확인하세요',
       gradient: 'from-amber-600 to-orange-600',
+    },
+    {
+      path: '/name-analysis',
+      icon: <FaPen className="text-5xl" />,
+      title: '이름 풀이',
+      description: '성명학으로 이름의 의미를 분석합니다',
+      gradient: 'from-indigo-600 to-purple-600',
     },
     {
       path: '/history',

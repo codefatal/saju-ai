@@ -230,6 +230,20 @@ export const getTojeongFortune = async (tojeongData) => {
   }
 };
 
+/**
+ * 이름 분석
+ * @param {Object} nameData - 이름, 목적, 생년월일 정보 (선택)
+ * @returns {Promise} 이름 분석 결과
+ */
+export const analyzeName = async (nameData) => {
+  try {
+    const response = await apiClient.post('/name/analyze', nameData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
 export default {
   analyzeSaju,
   getHistory,
@@ -244,4 +258,5 @@ export default {
   interpretDream,
   findLuckyDays,
   getTojeongFortune,
+  analyzeName,
 };
