@@ -192,8 +192,13 @@ public class SajuAnalysisService {
      */
     @Transactional(readOnly = true)
     public SajuResult getSajuResultEntity(Long id) {
-        return sajuResultRepository.findById(id)
+        SajuResult result = sajuResultRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("사주 분석 결과를 찾을 수 없습니다: id=" + id));
+
+        // Eager loading: BirthData를 Transactional 범위 내에서 강제로 로드
+        result.getBirthData().getYear(); // 접근하여 초기화
+
+        return result;
     }
 
     /**
