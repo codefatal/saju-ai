@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: everyone-saju-ai
+  datasource:
+    url: ${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+server:
+  port: ${PORT:8080}
+
+gemini:
+  api:
+    key: ${GEMINI_API_KEY}
+
+logging:
+  level:
+    com.sajuai: INFO
+    root: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
