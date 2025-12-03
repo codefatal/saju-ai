@@ -1,7 +1,59 @@
 import { Link } from 'react-router-dom';
-import { FaStar, FaBrain, FaClock, FaShieldAlt } from 'react-icons/fa';
+import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt } from 'react-icons/fa';
 
 const HomePage = () => {
+  const services = [
+    {
+      path: '/analysis',
+      icon: <FaBookOpen className="text-5xl" />,
+      title: '사주팔자 분석',
+      description: '생년월일시로 나만의 사주팔자를 분석합니다',
+      gradient: 'from-blue-500 to-cyan-500',
+    },
+    {
+      path: '/compatibility',
+      icon: <FaStar className="text-5xl" />,
+      title: '궁합 분석',
+      description: '두 사람의 궁합을 확인해보세요',
+      gradient: 'from-pink-500 to-rose-500',
+    },
+    {
+      path: '/daily-fortune',
+      icon: <FaStar className="text-5xl" />,
+      title: '오늘의 운세',
+      description: '오늘 하루의 운세를 확인해보세요',
+      gradient: 'from-purple-500 to-pink-500',
+    },
+    {
+      path: '/zodiac-fortune',
+      icon: <FaPaw className="text-5xl" />,
+      title: '띠별 운세',
+      description: '12간지 띠별 운세를 알아보세요',
+      gradient: 'from-green-500 to-emerald-500',
+    },
+    {
+      path: '/lucky-items',
+      icon: <FaGift className="text-5xl" />,
+      title: '오늘의 럭키 아이템',
+      description: '행운을 부르는 오늘의 아이템',
+      gradient: 'from-orange-500 to-red-500',
+    },
+    {
+      path: '/calendar-converter',
+      icon: <FaCalendarAlt className="text-5xl" />,
+      title: '음력/양력 변환',
+      description: '음력과 양력을 간편하게 변환하세요',
+      gradient: 'from-indigo-500 to-blue-500',
+    },
+    {
+      path: '/history',
+      icon: <FaHistory className="text-5xl" />,
+      title: '분석 이력',
+      description: '과거 분석 결과를 다시 확인하세요',
+      gradient: 'from-gray-500 to-slate-500',
+    },
+  ];
+
   const features = [
     {
       icon: <FaBrain className="text-4xl text-primary-500" />,
@@ -29,18 +81,47 @@ const HomePage = () => {
             <FaStar className="text-6xl text-primary-500 mx-auto mb-6 animate-pulse" />
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-gradient mb-6 animate-slide-up">
-            SajuAI
+            모두의사주AI
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-12 animate-slide-up" style={{ animationDelay: '0.2s' }}>
             AI가 분석하는 나만의 사주팔자
           </p>
-          <Link
-            to="/analysis"
-            className="inline-block btn-primary text-xl px-12 py-4 animate-slide-up"
-            style={{ animationDelay: '0.4s' }}
-          >
-            지금 분석하기
-          </Link>
+        </div>
+      </section>
+
+      {/* Services Menu Section */}
+      <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
+            원하는 서비스를 선택하세요
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, index) => (
+              <Link
+                key={service.path}
+                to={service.path}
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-90 group-hover:opacity-100 transition-opacity`}></div>
+                <div className="relative p-8 text-white">
+                  <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
+                  <p className="text-white/90 text-sm leading-relaxed">
+                    {service.description}
+                  </p>
+                  <div className="mt-6 inline-flex items-center text-sm font-medium">
+                    <span>시작하기</span>
+                    <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -48,7 +129,7 @@ const HomePage = () => {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-            왜 SajuAI인가요?
+            왜 모두의사주AI인가요?
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
@@ -104,12 +185,20 @@ const HomePage = () => {
           <p className="text-xl mb-8">
             나의 운명을 알아보고 더 나은 미래를 준비하세요
           </p>
-          <Link
-            to="/analysis"
-            className="inline-block bg-white text-primary-600 px-12 py-4 rounded-lg font-bold text-xl hover:bg-gray-100 transition-colors shadow-lg"
-          >
-            무료로 분석하기
-          </Link>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              to="/analysis"
+              className="inline-block bg-white text-primary-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+            >
+              사주팔자 분석
+            </Link>
+            <Link
+              to="/daily-fortune"
+              className="inline-block bg-white text-primary-600 px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg"
+            >
+              오늘의 운세
+            </Link>
+          </div>
         </div>
       </section>
     </div>

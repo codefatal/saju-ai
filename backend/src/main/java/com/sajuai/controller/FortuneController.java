@@ -1,0 +1,95 @@
+package com.sajuai.controller;
+
+import com.sajuai.dto.DailyFortuneRequest;
+import com.sajuai.dto.DailyFortuneResponse;
+import com.sajuai.dto.LuckyItemsResponse;
+import com.sajuai.dto.ZodiacFortuneRequest;
+import com.sajuai.dto.ZodiacFortuneResponse;
+import com.sajuai.service.DailyFortuneService;
+import com.sajuai.service.LuckyItemsService;
+import com.sajuai.service.ZodiacFortuneService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * 운세 관련 REST API 컨트롤러
+ */
+@RestController
+@RequestMapping("/api/fortune")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"})
+@RequiredArgsConstructor
+@Slf4j
+@Tag(name = "Fortune API", description = "운세 관련 API")
+public class FortuneController {
+
+    private final DailyFortuneService dailyFortuneService;
+    private final LuckyItemsService luckyItemsService;
+    private final ZodiacFortuneService zodiacFortuneService;
+
+    /**
+     * 오늘의 운세 조회
+     */
+    @PostMapping("/daily")
+    @Operation(summary = "오늘의 운세", description = "생년월일을 입력받아 오늘의 운세를 제공합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    public ResponseEntity<DailyFortuneResponse> getDailyFortune(@Valid @RequestBody DailyFortuneRequest request) {
+        log.info("POST /api/fortune/daily - 오늘의 운세 요청: {}-{}-{}",
+                request.getYear(), request.getMonth(), request.getDay());
+
+        DailyFortuneResponse response = dailyFortuneService.getTodayFortune(request);
+
+        log.info("POST /api/fortune/daily - 오늘의 운세 완료: id={}", response.getId());
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 오늘의 럭키 아이템 조회
+     */
+    @PostMapping("/lucky-items")
+    @Operation(summary = "오늘의 럭키 아이템", description = "생년월일을 입력받아 오늘의 행운 아이템을 추천합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    public ResponseEntity<LuckyItemsResponse> getLuckyItems(@Valid @RequestBody DailyFortuneRequest request) {
+        log.info("POST /api/fortune/lucky-items - 오늘의 럭키 아이템 요청: {}-{}-{}",
+                request.getYear(), request.getMonth(), request.getDay());
+
+        LuckyItemsResponse response = luckyItemsService.getTodayLuckyItems(request);
+
+        log.info("POST /api/fortune/lucky-items - 오늘의 럭키 아이템 완료");
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 띠별 운세 조회
+     */
+    @PostMapping("/zodiac")
+    @Operation(summary = "띠별 운세", description = "띠를 선택하여 오늘의 운세를 조회합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    public ResponseEntity<ZodiacFortuneResponse> getZodiacFortune(@Valid @RequestBody ZodiacFortuneRequest request) {
+        log.info("POST /api/fortune/zodiac - 띠별 운세 요청: {}",
+                request.getZodiac().getKoreanName());
+
+        ZodiacFortuneResponse response = zodiacFortuneService.getZodiacFortune(request);
+
+        log.info("POST /api/fortune/zodiac - 띠별 운세 완료");
+        return ResponseEntity.ok(response);
+    }
+}

@@ -2,6 +2,8 @@ package com.sajuai.controller;
 
 import com.sajuai.dto.BirthDataRequest;
 import com.sajuai.dto.SajuAnalysisResponse;
+import com.sajuai.model.SajuResult;
+import com.sajuai.service.PdfGenerationService;
 import com.sajuai.service.SajuAnalysisService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,6 +12,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +31,7 @@ import java.util.List;
 public class SajuController {
 
     private final SajuAnalysisService analysisService;
+    private final PdfGenerationService pdfGenerationService;
 
     /**
      * 사주 분석 요청
@@ -81,5 +86,36 @@ public class SajuController {
 
         log.info("GET /api/saju/{} - 조회 완료", id);
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * PDF 다운로드
+     */
+    @GetMapping("/{id}/pdf")
+    @Operation(summary = "PDF 다운로드", description = "사주 분석 결과를 PDF 파일로 다운로드합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "다운로드 성공"),
+            @ApiResponse(responseCode = "404", description = "결과를 찾을 수 없음"),
+            @ApiResponse(responseCode = "500", description = "PDF 생성 실패")
+    })
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
+        log.info("GET /api/saju/{}/pdf - PDF 다운로드 요청", id);
+
+        // 사주 결과 조회
+        SajuResult sajuResult = analysisService.getSajuResultEntity(id);
+
+        // PDF 생성
+        byte[] pdfBytes = pdfGenerationService.generateSajuPdf(sajuResult);
+
+        // HTTP 헤더 설정
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "saju_result_" + id + ".pdf");
+        headers.setContentLength(pdfBytes.length);
+
+        log.info("GET /api/saju/{}/pdf - PDF 생성 완료: {} bytes", id, pdfBytes.length);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdfBytes);
     }
 }

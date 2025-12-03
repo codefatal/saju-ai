@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 프로젝트 개요
 
-**SajuAI**는 생년월일시를 입력받아 전통 사주팔자를 계산하고, Google Gemini API를 활용하여 심층적인 사주 분석을 제공하는 풀스택 웹 애플리케이션입니다.
+**모두의사주AI**는 생년월일시를 입력받아 전통 사주팔자를 계산하고, Google Gemini API를 활용하여 심층적인 사주 분석을 제공하는 풀스택 웹 애플리케이션입니다.
 
 - **백엔드**: Spring Boot 3.2.0 + Java 17 + H2/MySQL
 - **프론트엔드**: React 18 + Vite + Zustand + Tailwind CSS

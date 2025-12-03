@@ -9,6 +9,11 @@ const Header = () => {
   const navItems = [
     { path: '/', label: '홈' },
     { path: '/analysis', label: '사주분석' },
+    { path: '/compatibility', label: '궁합' },
+    { path: '/daily-fortune', label: '오늘의운세' },
+    { path: '/zodiac-fortune', label: '띠별운세' },
+    { path: '/lucky-items', label: '럭키아이템' },
+    { path: '/calendar-converter', label: '음양력변환' },
     { path: '/history', label: '분석이력' },
   ];
 
@@ -21,7 +26,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <FaStar className="text-3xl text-primary-500 group-hover:rotate-180 transition-transform duration-500" />
-            <span className="text-2xl font-bold text-gradient">SajuAI</span>
+            <span className="text-2xl font-bold text-gradient">모두의사주AI</span>
           </Link>
 
           {/* Desktop Navigation */}

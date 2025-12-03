@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About */}
           <div>
-            <h3 className="text-lg font-bold text-gray-800 mb-4">SajuAI</h3>
+            <h3 className="text-lg font-bold text-gray-800 mb-4">모두의사주AI</h3>
             <p className="text-gray-600 text-sm">
               AI 기술을 활용한 전통 사주 분석 서비스
             </p>
@@ -63,7 +63,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="border-t mt-8 pt-8 text-center text-sm text-gray-600">
-          <p>&copy; {currentYear} SajuAI. All rights reserved.</p>
+          <p>&copy; {currentYear} 모두의사주AI. All rights reserved.</p>
         </div>
       </div>
     </footer>

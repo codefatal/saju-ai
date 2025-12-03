@@ -4,6 +4,11 @@ import Footer from './components/common/Footer';
 import HomePage from './pages/HomePage';
 import AnalysisPage from './pages/AnalysisPage';
 import HistoryPage from './pages/HistoryPage';
+import DailyFortunePage from './pages/DailyFortunePage';
+import LuckyItemsPage from './pages/LuckyItemsPage';
+import ZodiacFortunePage from './pages/ZodiacFortunePage';
+import CalendarConverterPage from './pages/CalendarConverterPage';
+import CompatibilityPage from './pages/CompatibilityPage';
 
 function App() {
   return (
@@ -14,6 +19,11 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/analysis" element={<AnalysisPage />} />
+            <Route path="/daily-fortune" element={<DailyFortunePage />} />
+            <Route path="/lucky-items" element={<LuckyItemsPage />} />
+            <Route path="/zodiac-fortune" element={<ZodiacFortunePage />} />
+            <Route path="/calendar-converter" element={<CalendarConverterPage />} />
+            <Route path="/compatibility" element={<CompatibilityPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="*" element={
               <div className="min-h-screen flex items-center justify-center">

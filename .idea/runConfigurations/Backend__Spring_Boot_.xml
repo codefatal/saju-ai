@@ -6,7 +6,7 @@
     <option name="SHORTEN_COMMAND_LINE" value="NONE" />
     <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <envs>
-      <env name="GEMINI_API_KEY" value="your-gemini-api-key-here" />
+      <env name="GEMINI_API_KEY" value="your-api-key-here" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />
