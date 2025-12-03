@@ -1,9 +1,10 @@
 #!/bin/bash
 set -e
 
+cd /app
+
 echo "Building Spring Boot application..."
-cd backend
-./gradlew clean bootJar -x test
+bash backend/gradlew -p backend clean bootJar -x test
 
 echo "Starting application..."
-java -jar build/libs/*.jar --spring.profiles.active=prod
+java -jar backend/build/libs/*.jar --spring.profiles.active=prod

@@ -1,0 +1,4 @@
+*.sh eol=lf
+gradlew eol=lf
+backend/gradlew eol=lf
+*.jar binary
