@@ -1,1 +1,1 @@
-web: cd backend && ./gradlew bootRun --args='--spring.profiles.active=prod'
+web: cd backend && java -jar build/libs/*.jar --spring.profiles.active=prod
