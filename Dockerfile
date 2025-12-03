@@ -17,7 +17,7 @@ WORKDIR /app
 COPY --from=builder /app/backend/build/libs/*.jar app.jar
 
 # 포트 설정
-EXPOSE 8080
+EXPOSE 3000
 
 # 애플리케이션 실행
-ENTRYPOINT ["sh", "-c", "java -jar app.jar --spring.profiles.active=prod --server.port=${PORT:-8080}"]
+CMD ["java", "-jar", "app.jar", "--spring.profiles.active=prod", "--server.port=3000"]
