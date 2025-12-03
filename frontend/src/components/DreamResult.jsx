@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaMoon, FaStar, FaBrain, FaBook, FaCrystalBall, FaLightbulb, FaExclamationTriangle } from 'react-icons/fa';
+import { FaMoon, FaStar, FaBrain, FaBook, FaGem, FaLightbulb, FaExclamationTriangle } from 'react-icons/fa';
 
 const DreamResult = ({ result }) => {
   const getCategoryIcon = (category) => {
@@ -87,7 +87,7 @@ const DreamResult = ({ result }) => {
       {/* Future Prediction */}
       <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl shadow-lg p-6 border-2 border-amber-200">
         <div className="flex items-center gap-3 mb-4">
-          <FaCrystalBall className="text-3xl text-amber-600" />
+          <FaGem className="text-3xl text-amber-600" />
           <h3 className="text-2xl font-bold text-amber-900">미래 예측 및 암시</h3>
         </div>
         <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">
