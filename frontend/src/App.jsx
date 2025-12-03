@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
@@ -14,8 +15,13 @@ import DreamPage from './pages/DreamPage';
 import LuckyDayPage from './pages/LuckyDayPage';
 import TojeongPage from './pages/TojeongPage';
 import NameAnalysisPage from './pages/NameAnalysisPage';
+import useSajuStore from './store/useSajuStore';
 
 function App() {
+  // App 초기화 시 localStorage에서 데이터 로드
+  useEffect(() => {
+    useSajuStore.getState().loadFromStorage();
+  }, []);
   return (
     <Router>
       <div className="flex flex-col min-h-screen">

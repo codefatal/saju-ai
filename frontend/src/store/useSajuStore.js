@@ -11,11 +11,18 @@ const useSajuStore = create((set, get) => ({
   // Actions
   setCurrentResult: (result) => set({ currentResult: result }),
 
-  addToHistory: (result) => set((state) => ({
-    history: [result, ...state.history].slice(0, 10),
-  })),
+  addToHistory: (result) => set((state) => {
+    const newHistory = [result, ...state.history].slice(0, 10);
+    // localStorage에 이력 저장
+    localStorage.setItem('sajuHistory', JSON.stringify(newHistory));
+    return { history: newHistory };
+  }),
 
-  setHistory: (history) => set({ history }),
+  setHistory: (history) => {
+    // localStorage에 이력 저장
+    localStorage.setItem('sajuHistory', JSON.stringify(history));
+    set({ history });
+  },
 
   setLoading: (isLoading) => set({ isLoading }),
 
@@ -79,10 +86,18 @@ const useSajuStore = create((set, get) => ({
   // Load from localStorage on init
   loadFromStorage: () => {
     try {
-      const stored = localStorage.getItem('lastSajuResult');
-      if (stored) {
-        const result = JSON.parse(stored);
+      // 마지막 분석 결과 로드
+      const lastResult = localStorage.getItem('lastSajuResult');
+      if (lastResult) {
+        const result = JSON.parse(lastResult);
         set({ currentResult: result });
+      }
+
+      // 이력 로드
+      const storedHistory = localStorage.getItem('sajuHistory');
+      if (storedHistory) {
+        const history = JSON.parse(storedHistory);
+        set({ history });
       }
     } catch (error) {
       console.error('Failed to load from localStorage:', error);
