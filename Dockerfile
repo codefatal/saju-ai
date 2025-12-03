@@ -9,7 +9,7 @@ COPY . .
 RUN cd backend && gradle clean bootJar -x test
 
 # 실행 이미지
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
