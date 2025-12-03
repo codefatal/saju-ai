@@ -1,21 +1,15 @@
 import { Link } from 'react-router-dom';
-import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt, FaMagic, FaMoon, FaCalendarCheck, FaPen } from 'react-icons/fa';
+import { FaStar, FaBrain, FaClock, FaShieldAlt, FaBookOpen, FaGem, FaPaw, FaGift, FaHistory, FaCalendarAlt, FaMagic, FaMoon, FaCalendarCheck, FaPen, FaDice, FaLightbulb } from 'react-icons/fa';
 
 const HomePage = () => {
   const services = [
+    // 사주운세
     {
       path: '/analysis',
       icon: <FaBookOpen className="text-5xl" />,
       title: '사주팔자 분석',
       description: '생년월일시로 나만의 사주팔자를 분석합니다',
       gradient: 'from-blue-500 to-cyan-500',
-    },
-    {
-      path: '/compatibility',
-      icon: <FaStar className="text-5xl" />,
-      title: '궁합 분석',
-      description: '두 사람의 궁합을 확인해보세요',
-      gradient: 'from-pink-500 to-rose-500',
     },
     {
       path: '/daily-fortune',
@@ -30,6 +24,65 @@ const HomePage = () => {
       title: '띠별 운세',
       description: '12간지 띠별 운세를 알아보세요',
       gradient: 'from-green-500 to-emerald-500',
+    },
+    // 궁합·길일
+    {
+      path: '/compatibility',
+      icon: <FaStar className="text-5xl" />,
+      title: '궁합 분석',
+      description: '두 사람의 궁합을 확인해보세요',
+      gradient: 'from-pink-500 to-rose-500',
+    },
+    {
+      path: '/lucky-day',
+      icon: <FaCalendarCheck className="text-5xl" />,
+      title: '길일 선택',
+      description: '좋은 날을 선택하여 일을 시작하세요',
+      gradient: 'from-green-600 to-emerald-600',
+    },
+    // 신점
+    {
+      path: '/tarot',
+      icon: <FaMagic className="text-5xl" />,
+      title: '타로 카드',
+      description: '타로 카드로 질문에 대한 답을 얻어보세요',
+      gradient: 'from-purple-600 to-indigo-600',
+    },
+    {
+      path: '/dream',
+      icon: <FaMoon className="text-5xl" />,
+      title: '꿈 해몽',
+      description: '꿈의 의미를 심리학과 전통으로 풀어드립니다',
+      gradient: 'from-blue-600 to-indigo-700',
+    },
+    {
+      path: '/tojeong',
+      icon: <FaBookOpen className="text-5xl" />,
+      title: '토정비결',
+      description: '전통 토정비결로 연운을 확인하세요',
+      gradient: 'from-amber-600 to-orange-600',
+    },
+    // 도구
+    {
+      path: '/daily-message',
+      icon: <FaLightbulb className="text-5xl" />,
+      title: '오늘의 한마디',
+      description: '매일 바뀌는 격언과 명언으로 영감을 얻으세요',
+      gradient: 'from-yellow-500 to-orange-500',
+    },
+    {
+      path: '/fortune-gacha',
+      icon: <FaDice className="text-5xl" />,
+      title: '운세 뽑기',
+      description: '행운을 시험해보세요! 매일 새로운 운세를 뽑을 수 있습니다',
+      gradient: 'from-red-500 to-pink-500',
+    },
+    {
+      path: '/hourly-fortune',
+      icon: <FaClock className="text-5xl" />,
+      title: '시간대 운세',
+      description: '시간대별로 알아보는 오늘의 운세',
+      gradient: 'from-cyan-500 to-blue-500',
     },
     {
       path: '/lucky-items',
@@ -46,40 +99,13 @@ const HomePage = () => {
       gradient: 'from-indigo-500 to-blue-500',
     },
     {
-      path: '/tarot',
-      icon: <FaMagic className="text-5xl" />,
-      title: '타로 카드',
-      description: '타로 카드로 질문에 대한 답을 얻어보세요',
-      gradient: 'from-purple-600 to-indigo-600',
-    },
-    {
-      path: '/dream',
-      icon: <FaMoon className="text-5xl" />,
-      title: '꿈 해몽',
-      description: '꿈의 의미를 심리학과 전통으로 풀어드립니다',
-      gradient: 'from-blue-600 to-indigo-700',
-    },
-    {
-      path: '/lucky-day',
-      icon: <FaCalendarCheck className="text-5xl" />,
-      title: '길일 선택',
-      description: '좋은 날을 선택하여 일을 시작하세요',
-      gradient: 'from-green-600 to-emerald-600',
-    },
-    {
-      path: '/tojeong',
-      icon: <FaBookOpen className="text-5xl" />,
-      title: '토정비결',
-      description: '전통 토정비결로 연운을 확인하세요',
-      gradient: 'from-amber-600 to-orange-600',
-    },
-    {
       path: '/name-analysis',
       icon: <FaPen className="text-5xl" />,
       title: '이름 풀이',
       description: '성명학으로 이름의 의미를 분석합니다',
       gradient: 'from-indigo-600 to-purple-600',
     },
+    // 분석 이력
     {
       path: '/history',
       icon: <FaHistory className="text-5xl" />,
