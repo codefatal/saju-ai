@@ -11,24 +11,26 @@ import {
   FaSignOutAlt,
   FaCheckCircle,
   FaTimes,
+  FaSpinner,
 } from 'react-icons/fa';
 import useAuthStore from '../store/useAuthStore';
 
 function MyPage() {
   const navigate = useNavigate();
-  const { user, logout } = useAuthStore();
+  const { user, logout, isLoading: authLoading, saveProfile, loadUserProfile } = useAuthStore();
   const [profileData, setProfileData] = useState({
-    year: '',
-    month: '',
-    day: '',
-    hour: '',
-    minute: '',
+    year: null,
+    month: null,
+    day: null,
+    hour: null,
+    minute: null,
     gender: 'NOT_SPECIFIED',
     isLunar: false,
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [profileLoaded, setProfileLoaded] = useState(false);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -36,6 +38,34 @@ function MyPage() {
       navigate('/login');
     }
   }, [user, navigate]);
+
+  // Load user profile on mount
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (user && !profileLoaded) {
+        try {
+          const profile = await loadUserProfile();
+          if (profile) {
+            setProfileData({
+              year: profile.year,
+              month: profile.month,
+              day: profile.day,
+              hour: profile.hour,
+              minute: profile.minute,
+              gender: profile.gender || 'NOT_SPECIFIED',
+              isLunar: profile.isLunar || false,
+            });
+          }
+          setProfileLoaded(true);
+        } catch (error) {
+          console.error('Failed to load profile:', error);
+          setProfileLoaded(true);
+        }
+      }
+    };
+
+    loadProfile();
+  }, [user, profileLoaded, loadUserProfile]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -50,9 +80,17 @@ function MyPage() {
     setMessage('');
 
     try {
-      // TODO: Integrate with backend API to save profile
-      // For now, just show success message
-      localStorage.setItem('userProfile', JSON.stringify(profileData));
+      const dataToSave = {
+        year: profileData.year,
+        month: profileData.month,
+        day: profileData.day,
+        hour: profileData.hour,
+        minute: profileData.minute,
+        gender: profileData.gender,
+        isLunar: profileData.isLunar,
+      };
+
+      await saveProfile(dataToSave);
       setMessage('프로필이 저장되었습니다.');
       setIsEditing(false);
 
@@ -60,6 +98,7 @@ function MyPage() {
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
       setMessage('프로필 저장 중 오류가 발생했습니다.');
+      console.error('Save profile error:', error);
     } finally {
       setIsLoading(false);
     }

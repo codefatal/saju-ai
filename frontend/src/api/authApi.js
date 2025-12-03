@@ -161,6 +161,33 @@ export const disconnectOAuthProvider = async (provider) => {
   }
 };
 
+/**
+ * Get user profile
+ * @returns {Promise} User profile with birth information
+ */
+export const getUserProfile = async () => {
+  try {
+    const response = await authClient.get('/auth/profile');
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
+/**
+ * Save user profile
+ * @param {Object} profileData - Profile data (year, month, day, hour, minute, gender, isLunar)
+ * @returns {Promise} Updated profile
+ */
+export const saveUserProfile = async (profileData) => {
+  try {
+    const response = await authClient.post('/auth/profile', profileData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
 export default {
   googleCallback,
   kakaoCallback,
@@ -168,4 +195,6 @@ export default {
   getCurrentUser,
   logout,
   disconnectOAuthProvider,
+  getUserProfile,
+  saveUserProfile,
 };

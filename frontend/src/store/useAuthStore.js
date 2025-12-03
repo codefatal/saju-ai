@@ -5,6 +5,8 @@ import {
   getCurrentUser,
   logout,
   disconnectOAuthProvider,
+  getUserProfile,
+  saveUserProfile,
 } from '../api/authApi';
 
 const useAuthStore = create((set, get) => ({
@@ -199,6 +201,38 @@ const useAuthStore = create((set, get) => ({
       }
     } catch (error) {
       console.error('Failed to load from localStorage:', error);
+    }
+  },
+
+  // Load user profile from backend
+  loadUserProfile: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const profile = await getUserProfile();
+      return profile;
+    } catch (error) {
+      console.error('Failed to load user profile:', error);
+      // Profile loading is optional, don't set error
+      return null;
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  // Save user profile
+  saveProfile: async (profileData) => {
+    set({ isLoading: true, error: null });
+    try {
+      const savedProfile = await saveUserProfile(profileData);
+      set({ isLoading: false });
+      return savedProfile;
+    } catch (error) {
+      const errorMessage = error.message || '프로필 저장 중 오류가 발생했습니다';
+      set({
+        error: errorMessage,
+        isLoading: false,
+      });
+      throw error;
     }
   },
 
