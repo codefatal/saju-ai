@@ -2,9 +2,10 @@ spring:
   application:
     name: everyone-saju-ai
   datasource:
-    url: ${DATABASE_PUBLIC_URL:jdbc:postgresql://hopper.proxy.rlwy.net:12057/railway}
-    username: ${DATABASE_USERNAME:postgres}
+    url: ${DATABASE_URL:jdbc:postgresql://hopper.proxy.rlwy.net:12057/railway}
+    username: ${DATABASE_USER:postgres}
     password: ${DATABASE_PASSWORD:lziMzFbYNcJYLFEFMNCslwHTbFLHAUmN}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update

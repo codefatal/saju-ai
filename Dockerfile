@@ -3,7 +3,7 @@ FROM gradle:8.5-jdk17 AS builder
 WORKDIR /app
 
 # Cache bust - force rebuild
-ARG CACHE_BUSTER=1
+ARG CACHE_BUSTER=2
 
 # 소스코드 복사
 COPY . .

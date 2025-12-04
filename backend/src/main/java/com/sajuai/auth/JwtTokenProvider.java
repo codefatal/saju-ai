@@ -107,7 +107,7 @@ public class JwtTokenProvider {
         } catch (MalformedJwtException e) {
             log.warn("Invalid JWT token: {}", e.getMessage());
             throw e;
-        } catch (SignatureException e) {
+        } catch (JwtException e) {
             log.warn("JWT signature validation failed: {}", e.getMessage());
             throw e;
         } catch (IllegalArgumentException e) {
