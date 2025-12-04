@@ -81,7 +81,7 @@ public class JwtTokenProvider {
                 .subject(email != null ? email : "refresh-token")
                 .issuedAt(now)
                 .expiration(expiryDate)
-                .signWith(secretKey, SignatureAlgorithm.HS512)
+                .signWith(secretKey, Jwts.SIG.HS512)
                 .compact();
     }
 
@@ -93,10 +93,10 @@ public class JwtTokenProvider {
      */
     public Claims getClaimsFromToken(String token) {
         try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
+            return Jwts.parser()
+                    .verifyWith(secretKey)
                     .build()
-                    .parseClaimsJws(token)
+                    .parseSignedClaims(token)
                     .getPayload();
         } catch (ExpiredJwtException e) {
             log.warn("Expired JWT token: {}", e.getMessage());
@@ -107,7 +107,7 @@ public class JwtTokenProvider {
         } catch (MalformedJwtException e) {
             log.warn("Invalid JWT token: {}", e.getMessage());
             throw e;
-        } catch (SignatureException e) {
+        } catch (JwtException e) {
             log.warn("JWT signature validation failed: {}", e.getMessage());
             throw e;
         } catch (IllegalArgumentException e) {
@@ -124,10 +124,10 @@ public class JwtTokenProvider {
      */
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
+            Jwts.parser()
+                    .verifyWith(secretKey)
                     .build()
-                    .parseClaimsJws(token);
+                    .parseSignedClaims(token);
             return true;
         } catch (ExpiredJwtException e) {
             log.warn("Expired JWT token");
