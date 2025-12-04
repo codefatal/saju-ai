@@ -252,7 +252,7 @@ const NameAnalysisResult = ({ result }) => {
               <FaDice className="mr-2 text-blue-500" />
               행운의 숫자
             </h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 justify-center">
               {result.luckyNumbers.map((number, index) => (
                 <span
                   key={index}
