@@ -58,6 +58,7 @@ public class UserProfileService {
                 : UserProfile.Gender.NOT_SPECIFIED;
 
         profile.updateBirthInfo(
+                profileDTO.getName(),
                 profileDTO.getYear(),
                 profileDTO.getMonth(),
                 profileDTO.getDay(),
@@ -87,6 +88,7 @@ public class UserProfileService {
         return UserProfileDTO.builder()
                 .id(profile.getId())
                 .userId(profile.getUser().getId())
+                .name(profile.getName())
                 .year(profile.getYear())
                 .month(profile.getMonth())
                 .day(profile.getDay())

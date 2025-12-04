@@ -25,6 +25,9 @@ public class UserProfile {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
+    @Column(name = "name", length = 100)
+    private String name;  // 사용자 이름
+
     @Column(name = "year")
     private Integer year;  // 생년
 
@@ -60,7 +63,8 @@ public class UserProfile {
         NOT_SPECIFIED
     }
 
-    public void updateBirthInfo(Integer year, Integer month, Integer day, Integer hour, Integer minute, Gender gender, Boolean isLunar) {
+    public void updateBirthInfo(String name, Integer year, Integer month, Integer day, Integer hour, Integer minute, Gender gender, Boolean isLunar) {
+        this.name = name;
         this.year = year;
         this.month = month;
         this.day = day;

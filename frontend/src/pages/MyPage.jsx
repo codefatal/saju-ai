@@ -19,6 +19,7 @@ function MyPage() {
   const navigate = useNavigate();
   const { user, logout, isLoading: authLoading, saveProfile, loadUserProfile } = useAuthStore();
   const [profileData, setProfileData] = useState({
+    name: '',
     year: null,
     month: null,
     day: null,
@@ -47,6 +48,7 @@ function MyPage() {
           const profile = await loadUserProfile();
           if (profile) {
             setProfileData({
+              name: profile.name || '',
               year: profile.year,
               month: profile.month,
               day: profile.day,
@@ -81,6 +83,7 @@ function MyPage() {
 
     try {
       const dataToSave = {
+        name: profileData.name,
         year: profileData.year,
         month: profileData.month,
         day: profileData.day,
@@ -216,6 +219,23 @@ function MyPage() {
               💡 사주팔자 분석을 위해 생년월일시를 입력해주세요.
             </div>
           )}
+
+          {/* Name Field */}
+          <div className="mb-6">
+            <label className="block text-gray-400 text-sm font-medium mb-2">
+              <FaUser className="inline mr-2" />
+              이름
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={profileData.name}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              placeholder="이름을 입력하세요"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 disabled:opacity-50"
+            />
+          </div>
 
           {/* Birth Date Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

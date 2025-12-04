@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class UserProfileDTO {
     private Long id;
     private Long userId;
+    private String name;
     private Integer year;
     private Integer month;
     private Integer day;
