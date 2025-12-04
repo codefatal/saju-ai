@@ -3,6 +3,8 @@ package com.sajuai.controller;
 import com.sajuai.dto.DailyFortuneRequest;
 import com.sajuai.dto.DailyFortuneResponse;
 import com.sajuai.dto.DailyMessageResponse;
+import com.sajuai.dto.DailyZodiacCompatibilityRequest;
+import com.sajuai.dto.DailyZodiacCompatibilityResponse;
 import com.sajuai.dto.FortuneGachaResponse;
 import com.sajuai.dto.HourlyFortuneResponse;
 import com.sajuai.dto.LuckyItemsResponse;
@@ -10,6 +12,7 @@ import com.sajuai.dto.ZodiacFortuneRequest;
 import com.sajuai.dto.ZodiacFortuneResponse;
 import com.sajuai.service.DailyFortuneService;
 import com.sajuai.service.DailyMessageService;
+import com.sajuai.service.DailyZodiacCompatibilityService;
 import com.sajuai.service.FortuneGachaService;
 import com.sajuai.service.HourlyFortuneService;
 import com.sajuai.service.LuckyItemsService;
@@ -41,6 +44,7 @@ public class FortuneController {
     private final DailyMessageService dailyMessageService;
     private final FortuneGachaService fortuneGachaService;
     private final HourlyFortuneService hourlyFortuneService;
+    private final DailyZodiacCompatibilityService dailyZodiacCompatibilityService;
 
     /**
      * 오늘의 운세 조회
@@ -153,6 +157,28 @@ public class FortuneController {
         HourlyFortuneResponse response = hourlyFortuneService.getHourlyFortune();
 
         log.info("GET /api/fortune/hourly - 시간대 운세 완료: {} 시간대", response.getHours().size());
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 띠별 오늘의 궁합 조회
+     */
+    @PostMapping("/zodiac-compatibility")
+    @Operation(summary = "띠별 오늘의 궁합", description = "선택한 띠에 대한 오늘의 12띠별 궁합을 조회합니다")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청"),
+            @ApiResponse(responseCode = "500", description = "서버 오류")
+    })
+    public ResponseEntity<DailyZodiacCompatibilityResponse> getDailyZodiacCompatibility(
+            @Valid @RequestBody DailyZodiacCompatibilityRequest request) {
+        log.info("POST /api/fortune/zodiac-compatibility - 띠별 오늘의 궁합 요청: {}",
+                request.getZodiac().getKoreanName());
+
+        DailyZodiacCompatibilityResponse response = dailyZodiacCompatibilityService.getDailyCompatibility(request);
+
+        log.info("POST /api/fortune/zodiac-compatibility - 띠별 오늘의 궁합 완료: 최고={}, 최악={}",
+                response.getBestMatch(), response.getWorstMatch());
         return ResponseEntity.ok(response);
     }
 }

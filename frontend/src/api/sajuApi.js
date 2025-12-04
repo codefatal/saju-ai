@@ -255,6 +255,20 @@ export const analyzeName = async (nameData) => {
   }
 };
 
+/**
+ * 띠별 오늘의 궁합
+ * @param {Object} data - 띠 정보
+ * @returns {Promise} 띠별 궁합 결과
+ */
+export const getDailyZodiacCompatibility = async (data) => {
+  try {
+    const response = await apiClient.post('/fortune/zodiac-compatibility', data);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
 export default {
   analyzeSaju,
   getHistory,
@@ -272,4 +286,5 @@ export default {
   findLuckyDays,
   getTojeongFortune,
   analyzeName,
+  getDailyZodiacCompatibility,
 };

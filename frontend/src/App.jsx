@@ -18,6 +18,7 @@ import NameAnalysisPage from './pages/NameAnalysisPage';
 import DailyMessagePage from './pages/DailyMessagePage';
 import FortuneGachaPage from './pages/FortuneGachaPage';
 import HourlyFortunePage from './pages/HourlyFortunePage';
+import DailyZodiacCompatibilityPage from './pages/DailyZodiacCompatibilityPage';
 import LoginPage from './pages/LoginPage';
 import AuthCallbackPage from './pages/AuthCallbackPage';
 import MyPage from './pages/MyPage';
@@ -54,6 +55,7 @@ function App() {
             <Route path="/daily-message" element={<DailyMessagePage />} />
             <Route path="/fortune-gacha" element={<FortuneGachaPage />} />
             <Route path="/hourly-fortune" element={<HourlyFortunePage />} />
+            <Route path="/daily-zodiac-compatibility" element={<DailyZodiacCompatibilityPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="*" element={
               <div className="min-h-screen flex items-center justify-center">

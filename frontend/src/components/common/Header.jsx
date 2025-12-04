@@ -45,6 +45,7 @@ const Header = () => {
         { path: '/daily-message', label: '오늘의한마디' },
         { path: '/fortune-gacha', label: '운세뽑기' },
         { path: '/hourly-fortune', label: '시간대운세' },
+        { path: '/daily-zodiac-compatibility', label: '띠별궁합' },
         { path: '/lucky-items', label: '럭키아이템' },
         { path: '/calendar-converter', label: '음양력변환' },
         { path: '/name-analysis', label: '이름풀이' },
