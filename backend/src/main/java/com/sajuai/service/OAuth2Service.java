@@ -33,6 +33,9 @@ public class OAuth2Service {
     @Value("${oauth.google.userinfo-uri}")
     private String googleUserinfoUri;
 
+    @Value("${oauth.google.redirect-uri}")
+    private String googleRedirectUri;
+
     @Value("${oauth.kakao.client-id}")
     private String kakaoClientId;
 
@@ -44,6 +47,9 @@ public class OAuth2Service {
 
     @Value("${oauth.kakao.userinfo-uri}")
     private String kakaoUserinfoUri;
+
+    @Value("${oauth.kakao.redirect-uri}")
+    private String kakaoRedirectUri;
 
     /**
      * Google OAuth에서 사용자 정보 조회
@@ -94,6 +100,7 @@ public class OAuth2Service {
         params.put("code", code);
         params.put("client_id", googleClientId);
         params.put("client_secret", googleClientSecret);
+        params.put("redirect_uri", googleRedirectUri);
         params.put("grant_type", "authorization_code");
 
         RequestBody requestBody = RequestBody.create(
@@ -107,7 +114,9 @@ public class OAuth2Service {
 
         try (Response response = httpClient.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Failed to get Google access token: " + response.code());
+                String errorBody = response.body() != null ? response.body().string() : "No error body";
+                log.error("Failed to get Google access token. Status: {}, Body: {}", response.code(), errorBody);
+                throw new IOException("Failed to get Google access token: " + response.code() + " - " + errorBody);
             }
 
             String responseBody = response.body().string();
@@ -156,6 +165,7 @@ public class OAuth2Service {
                 .add("code", code)
                 .add("client_id", kakaoClientId)
                 .add("client_secret", kakaoClientSecret)
+                .add("redirect_uri", kakaoRedirectUri)
                 .add("grant_type", "authorization_code")
                 .build();
 
@@ -166,7 +176,9 @@ public class OAuth2Service {
 
         try (Response response = httpClient.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Failed to get Kakao access token: " + response.code());
+                String errorBody = response.body() != null ? response.body().string() : "No error body";
+                log.error("Failed to get Kakao access token. Status: {}, Body: {}", response.code(), errorBody);
+                throw new IOException("Failed to get Kakao access token: " + response.code() + " - " + errorBody);
             }
 
             String responseBody = response.body().string();
