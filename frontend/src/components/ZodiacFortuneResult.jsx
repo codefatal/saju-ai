@@ -147,7 +147,7 @@ const ZodiacFortuneResult = ({ fortune, onNewFortune }) => {
       {/* 행운 요소 */}
       <div className="card">
         <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">오늘의 행운 키워드</h3>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 justify-items-center">
           {/* 행운의 색상 */}
           <div className="text-center">
             <FaPalette className="text-3xl text-primary-500 mx-auto mb-3" />
