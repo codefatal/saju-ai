@@ -13,6 +13,25 @@ gemini:
   api:
     key: ${GEMINI_API_KEY}
 
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-expiration: 3600000
+  refresh-token-expiration: 604800000
+
+oauth:
+  google:
+    client-id: ${GOOGLE_CLIENT_ID:}
+    client-secret: ${GOOGLE_CLIENT_SECRET:}
+    redirect-uri: ${GOOGLE_REDIRECT_URI:http://localhost:8888/api/auth/oauth/google/callback}
+    token-uri: https://oauth2.googleapis.com/token
+    userinfo-uri: https://www.googleapis.com/oauth2/v2/userinfo
+  kakao:
+    client-id: ${KAKAO_CLIENT_ID:}
+    client-secret: ${KAKAO_CLIENT_SECRET:}
+    redirect-uri: ${KAKAO_REDIRECT_URI:http://localhost:8888/api/auth/oauth/kakao/callback}
+    token-uri: https://kauth.kakao.com/oauth/token
+    userinfo-uri: https://kapi.kakao.com/v2/user/me
+
 logging:
   level:
     com.sajuai: INFO

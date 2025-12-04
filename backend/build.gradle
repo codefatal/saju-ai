@@ -37,9 +37,7 @@ dependencies {
     // OAuth2
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
-    // Database
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'com.mysql:mysql-connector-j'
+    // Database - PostgreSQL only
     runtimeOnly 'org.postgresql:postgresql'
 
     // Lombok
