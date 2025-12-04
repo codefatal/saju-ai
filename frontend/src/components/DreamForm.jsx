@@ -1,13 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaMoon } from 'react-icons/fa';
+import useAuthStore from '../store/useAuthStore';
 
 const DreamForm = ({ onSubmit, isLoading }) => {
+  const { user, loadUserProfile } = useAuthStore();
   const [formData, setFormData] = useState({
     dreamContent: '',
     category: 'OTHER',
     mood: 'NEUTRAL',
     name: '',
   });
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  // Auto-load user profile if logged in
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (user && !profileLoaded) {
+        try {
+          const profile = await loadUserProfile();
+          if (profile && profile.name) {
+            setFormData(prev => ({ ...prev, name: profile.name }));
+          }
+          setProfileLoaded(true);
+        } catch (error) {
+          console.error('Failed to load profile:', error);
+          setProfileLoaded(true);
+        }
+      }
+    };
+
+    loadProfile();
+  }, [user, profileLoaded, loadUserProfile]);
 
   const categories = [
     { value: 'PERSON', label: '사람', icon: '👤', description: '사람이 등장하는 꿈' },

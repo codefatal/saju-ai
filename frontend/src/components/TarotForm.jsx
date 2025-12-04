@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaMagic } from 'react-icons/fa';
+import useAuthStore from '../store/useAuthStore';
 
 const TarotForm = ({ onSubmit, isLoading }) => {
+  const { user, loadUserProfile } = useAuthStore();
   const [formData, setFormData] = useState({
     question: '',
     category: 'GENERAL',
     name: '',
   });
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  // Auto-load user profile if logged in
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (user && !profileLoaded) {
+        try {
+          const profile = await loadUserProfile();
+          if (profile && profile.name) {
+            setFormData(prev => ({ ...prev, name: profile.name }));
+          }
+          setProfileLoaded(true);
+        } catch (error) {
+          console.error('Failed to load profile:', error);
+          setProfileLoaded(true);
+        }
+      }
+    };
+
+    loadProfile();
+  }, [user, profileLoaded, loadUserProfile]);
 
   const categories = [
     { value: 'GENERAL', label: '종합운', icon: '🔮' },

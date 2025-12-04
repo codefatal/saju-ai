@@ -1,13 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaHeart, FaUser, FaCalendarAlt, FaClock, FaVenusMars } from 'react-icons/fa';
 import BirthForm from './BirthForm';
+import useAuthStore from '../store/useAuthStore';
 
 const CompatibilityForm = ({ onAnalyze }) => {
+  const { user, loadUserProfile } = useAuthStore();
   const [person1Data, setPerson1Data] = useState(null);
   const [person2Data, setPerson2Data] = useState(null);
   const [person1Name, setPerson1Name] = useState('');
   const [person2Name, setPerson2Name] = useState('');
   const [currentPerson, setCurrentPerson] = useState(1);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  // Auto-load user profile if logged in (for person1)
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (user && !profileLoaded && !person1Data) {
+        try {
+          const profile = await loadUserProfile();
+          if (profile && profile.name) {
+            setPerson1Name(profile.name);
+          }
+          setProfileLoaded(true);
+        } catch (error) {
+          console.error('Failed to load profile:', error);
+          setProfileLoaded(true);
+        }
+      }
+    };
+
+    loadProfile();
+  }, [user, profileLoaded, person1Data, loadUserProfile]);
 
   const handlePerson1Submit = (birthData) => {
     setPerson1Data(birthData);
