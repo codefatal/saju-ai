@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaCalendarAlt, FaClock, FaVenusMars } from 'react-icons/fa';
+import useAuthStore from '../store/useAuthStore';
 
 const BirthForm = ({ onSubmit, isLoading }) => {
+  const { user, loadUserProfile } = useAuthStore();
   const [formData, setFormData] = useState({
     year: '',
     month: '',
@@ -13,6 +15,35 @@ const BirthForm = ({ onSubmit, isLoading }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  // Auto-load user profile if logged in
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (user && !profileLoaded) {
+        try {
+          const profile = await loadUserProfile();
+          if (profile && profile.year) {
+            setFormData({
+              year: profile.year || '',
+              month: profile.month || '',
+              day: profile.day || '',
+              hour: profile.hour !== undefined ? profile.hour : '',
+              minute: profile.minute !== undefined ? profile.minute : '',
+              gender: profile.gender || 'MALE',
+              isLunar: profile.isLunar || false,
+            });
+          }
+          setProfileLoaded(true);
+        } catch (error) {
+          console.error('Failed to load profile:', error);
+          setProfileLoaded(true);
+        }
+      }
+    };
+
+    loadProfile();
+  }, [user, profileLoaded, loadUserProfile]);
 
   const validateForm = () => {
     const newErrors = {};

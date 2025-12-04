@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaPen, FaUser, FaMale, FaFemale } from 'react-icons/fa';
 import PropTypes from 'prop-types';
+import useAuthStore from '../store/useAuthStore';
 
 const NameAnalysisForm = ({ onSubmit, isLoading }) => {
+  const { user, loadUserProfile } = useAuthStore();
   const [formData, setFormData] = useState({
     name: '',
     purpose: 'CURRENT',
@@ -13,6 +15,37 @@ const NameAnalysisForm = ({ onSubmit, isLoading }) => {
   });
 
   const [includeBirthData, setIncludeBirthData] = useState(false);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+
+  // Auto-load user profile if logged in
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (user && !profileLoaded) {
+        try {
+          const profile = await loadUserProfile();
+          if (profile) {
+            setFormData({
+              name: profile.name || '',
+              purpose: 'CURRENT',
+              birthYear: profile.year || '',
+              birthMonth: profile.month || '',
+              birthDay: profile.day || '',
+              gender: profile.gender || 'MALE',
+            });
+            if (profile.year && profile.month && profile.day) {
+              setIncludeBirthData(true);
+            }
+          }
+          setProfileLoaded(true);
+        } catch (error) {
+          console.error('Failed to load profile:', error);
+          setProfileLoaded(true);
+        }
+      }
+    };
+
+    loadProfile();
+  }, [user, profileLoaded, loadUserProfile]);
 
   const purposes = [
     { value: 'CURRENT', label: '현재 이름 분석', description: '지금 사용하는 이름 분석' },
