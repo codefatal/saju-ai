@@ -202,20 +202,43 @@ public class OAuth2Service {
 
         try (Response response = httpClient.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Failed to get Kakao user info: " + response.code());
+                String errorBody = response.body() != null ? response.body().string() : "No error body";
+                log.error("Failed to get Kakao user info. Status: {}, Body: {}", response.code(), errorBody);
+                throw new IOException("Failed to get Kakao user info: " + response.code() + " - " + errorBody);
             }
 
             String responseBody = response.body().string();
+            log.debug("Kakao user info response: {}", responseBody);
             JsonObject jsonObject = gson.fromJson(responseBody, JsonObject.class);
 
             // Kakao 사용자 정보 추출
             long kakaoAccountId = jsonObject.get("id").getAsLong();
-            JsonObject kakaoAccount = jsonObject.getAsJsonObject("kakao_account");
-            JsonObject profile = kakaoAccount.getAsJsonObject("profile");
 
-            String email = kakaoAccount.has("email") ? kakaoAccount.get("email").getAsString() : "";
-            String nickname = profile.has("nickname") ? profile.get("nickname").getAsString() : "";
-            String pictureUrl = profile.has("profile_image_url") ? profile.get("profile_image_url").getAsString() : null;
+            // kakao_account는 선택 동의 항목이므로 null일 수 있음
+            JsonObject kakaoAccount = jsonObject.has("kakao_account") ?
+                    jsonObject.getAsJsonObject("kakao_account") : null;
+
+            String email = "";
+            String nickname = "Kakao User " + kakaoAccountId; // 기본값
+            String pictureUrl = null;
+
+            if (kakaoAccount != null) {
+                // 이메일 추출 (선택 동의)
+                email = kakaoAccount.has("email") ? kakaoAccount.get("email").getAsString() : "";
+
+                // 프로필 정보 추출 (선택 동의)
+                if (kakaoAccount.has("profile")) {
+                    JsonObject profile = kakaoAccount.getAsJsonObject("profile");
+                    nickname = profile.has("nickname") ? profile.get("nickname").getAsString() : nickname;
+                    pictureUrl = profile.has("profile_image_url") ?
+                            profile.get("profile_image_url").getAsString() : null;
+                }
+            }
+
+            // 이메일이 없으면 ID 기반으로 생성
+            if (email == null || email.isEmpty()) {
+                email = "kakao_" + kakaoAccountId + "@kakao.user";
+            }
 
             return UserInfo.builder()
                     .id(String.valueOf(kakaoAccountId))
